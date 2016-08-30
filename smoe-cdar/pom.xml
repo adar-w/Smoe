@@ -1,0 +1,26 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>me.some</groupId>
+		<artifactId>root</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	
+	<artifactId>smoe-cdar</artifactId>
+	
+	<developers>
+		<developer>
+			<name>Adar.w</name>
+			<email>adar-w@outlook.com</email>
+		</developer>
+	</developers>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.6</version>
+		</dependency>
+	</dependencies>
+</project>
