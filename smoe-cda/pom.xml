@@ -15,12 +15,16 @@
 			<email>adar-w@outlook.com</email>
 		</developer>
 	</developers>
+	
+	<properties>
+		<fastjson.version>1.2.6</fastjson.version>
+	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.2.6</version>
+			<version>${fastjson.version}</version>
 		</dependency>
 	</dependencies>
 </project>

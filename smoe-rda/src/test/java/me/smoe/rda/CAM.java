@@ -1,5 +1,7 @@
 /**
- * Copyright (c) 2016, adar.w (adar-w@outlook.com) 
+ * Copyright (c) 2016, adar.w (adar.w@outlook.com) 
+ * 
+ * http://www.smoe.me
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +15,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.smoe.cdar.proxy;
+package me.smoe.rda;
 
-public interface CdarProxy {
+public class CAM {
+	
+	private Long id;
 
-	String proxyIp();
-	
-	int proxyPort();
-	
-	String proxyUsername();
-	
-	String proxyPassword();
-	
+	private String name;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }
