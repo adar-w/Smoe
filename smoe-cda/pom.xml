@@ -7,7 +7,7 @@
 		<version>0.0.1</version>
 	</parent>
 	
-	<artifactId>smoe-cdar</artifactId>
+	<artifactId>smoe-cda</artifactId>
 	
 	<developers>
 		<developer>

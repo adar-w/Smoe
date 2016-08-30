@@ -11,6 +11,6 @@
 	<url>https://github.com/adar-w/Some.git</url>
 
 	<modules>
-		<module>smoe-cdar</module>
+		<module>smoe-cda</module>
 	</modules>
 </project>
