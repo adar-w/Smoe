@@ -1,7 +1,7 @@
 
 
 # Cdar
-> Easy request by cdar.
+> Easy http request.
 
 
 ## Usage

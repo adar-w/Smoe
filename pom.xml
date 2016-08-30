@@ -12,5 +12,6 @@
 
 	<modules>
 		<module>smoe-cda</module>
+		<module>smoe-rda</module>
 	</modules>
 </project>

@@ -4,7 +4,7 @@
 
 
 ####Cda
-	Easy request.
+	Easy http request.
 	
 	
 ####Rda
