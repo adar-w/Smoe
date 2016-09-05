@@ -18,14 +18,13 @@ package me.smoe.rda.handler.impl;
 import java.io.Serializable;
 
 import me.smoe.rda.exception.RdaException;
-import me.smoe.rda.handler.SQLHandler;
+import me.smoe.rda.handler.RdaHandler;
 
-public class StandardSQLHandler implements SQLHandler {
+public class StandardRdaHandler implements RdaHandler {
 
 	@Override
 	public <T> void save(T entity) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -34,6 +33,12 @@ public class StandardSQLHandler implements SQLHandler {
 		
 	}
 
+	@Override
+	public <T> void modify(T entity) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	@Override
 	public <T> T findOne(Class<T> clazz, Serializable id) throws RdaException {
 		// TODO Auto-generated method stub
@@ -99,5 +104,4 @@ public class StandardSQLHandler implements SQLHandler {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

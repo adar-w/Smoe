@@ -20,14 +20,14 @@ import java.io.Serializable;
 import javax.sql.DataSource;
 
 import me.smoe.rda.exception.RdaException;
-import me.smoe.rda.handler.SQLHandler;
-import me.smoe.rda.handler.impl.StandardSQLHandler;
+import me.smoe.rda.handler.RdaHandler;
+import me.smoe.rda.handler.impl.StandardRdaHandler;
 
 public class Rda<T> {
 	
-	private static final SQLHandler sqlHandler;
+	private static final RdaHandler handler;
 	static {
-		sqlHandler = new StandardSQLHandler();
+		handler = new StandardRdaHandler();
 	}
 
 	private static boolean init;
@@ -44,15 +44,15 @@ public class Rda<T> {
 		init = true;
 	}
 
-	public static <T> RdaBuilder<T> at(Class<T> clazz) throws NoSuchFieldException, SecurityException {
-		return new RdaBuilder<T>(clazz);
+	public static <T> RdaBe<T> at(Class<T> clazz) {
+		return new RdaBe<T>(clazz);
 	}
 	
-	public static class RdaBuilder<T> {
+	public static class RdaBe<T> {
 		
 		private Class<T> clazz;
 		
-		RdaBuilder(Class<T> clazz) {
+		RdaBe(Class<T> clazz) {
 			if (init) {
 				this.clazz = clazz;
 			} else {
@@ -61,55 +61,55 @@ public class Rda<T> {
 		}
 
 		public void save(T entity) {
-			sqlHandler.save(entity);
+			handler.save(entity);
 		}
 
 		public void save(Iterable<T> entities) {
-			sqlHandler.save(entities);
+			handler.save(entities);
 		}
 
 		public T findOne(Serializable id) throws RdaException {
-			return sqlHandler.findOne(clazz, id);
+			return handler.findOne(clazz, id);
 		}
 
 		public Iterable<T> find() throws RdaException {
-			return sqlHandler.find(clazz);
+			return handler.find(clazz);
 		}
 
 		public Iterable<T> find(T entity) throws RdaException {
-			return sqlHandler.find(clazz, entity);
+			return handler.find(clazz, entity);
 		}
 
 		public Iterable<T> find(Iterable<? extends Serializable> ids) throws RdaException {
-			return sqlHandler.find(clazz, ids);
+			return handler.find(clazz, ids);
 		}
 
 		public Iterable<T> findAll() throws RdaException {
-			return sqlHandler.findAll(clazz);
+			return handler.findAll(clazz);
 		}
 
 		public void delete(Serializable id) throws RdaException {
-			sqlHandler.delete(clazz, id);
+			handler.delete(clazz, id);
 		}
 
 		public void delete(Iterable<? extends Serializable> ids) throws RdaException {
-			sqlHandler.delete(clazz, ids);
+			handler.delete(clazz, ids);
 		}
 
 		public void deleteAll() throws RdaException {
-			sqlHandler.deleteAll(clazz);
+			handler.deleteAll(clazz);
 		}
 
 		public long count() throws RdaException {
-			return sqlHandler.count(clazz, null);
+			return handler.count(clazz, null);
 		}
 
 		public long count(T entity) throws RdaException {
-			return sqlHandler.count(clazz, entity);
+			return handler.count(clazz, entity);
 		}
 
 		public boolean exists(Class<T> clazz, Serializable id) throws RdaException {
-			return sqlHandler.exists(clazz, id);
+			return handler.exists(clazz, id);
 		}
 
 		public Long build(String sql) throws RdaException {
