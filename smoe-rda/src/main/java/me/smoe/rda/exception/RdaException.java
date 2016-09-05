@@ -13,21 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.smoe.rda;
+package me.smoe.rda.exception;
 
-import java.util.Arrays;
+public class RdaException extends RuntimeException {
 
-import me.smoe.rda.core.Rda;
+	private static final long serialVersionUID = 1L;
 
-public class TestRda {
-	
-	private static final String URL = "jdbc:mysql://localhost:3306/adar";
-	
-	static {
-		Rda.to(URL, "root", "adar");
-	}
-
-	public static void main(String[] args) throws Exception {
-		Rda.at(CAM.class).find(Arrays.asList(1L));
-	}
 }
