@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.smoe.cdar;
+package me.smoe.cda;
 
 import me.smoe.cda.core.Cda;
 
-public class CdarFetcher {
+public class CdaFetcher {
 
 	public static void main(String[] args) throws Exception {
 		Cda.connect("https://vt.tumblr.com/tumblr_o6l5rm2gSX1vnl0qg_480.mp4");

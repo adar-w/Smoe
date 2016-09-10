@@ -31,7 +31,7 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import me.smoe.cda.proxy.CdarProxy;
+import me.smoe.cda.proxy.CdaProxy;
 
 public class Cda {
 
@@ -59,7 +59,7 @@ public class Cda {
 
 		private String body;
 		
-		private CdarProxy proxy;
+		private CdaProxy proxy;
 		
 		public CdaBuilder(String url) {
 			this.url = url;
@@ -115,8 +115,8 @@ public class Cda {
 			return this;
 		}
 
-		public CdaBuilder proxy(CdarProxy cdarProxy) {
-			this.proxy = new HttpProxy(cdarProxy.proxyIp(), cdarProxy.proxyPort(), cdarProxy.proxyUsername(), cdarProxy.proxyPassword());
+		public CdaBuilder proxy(CdaProxy cdaProxy) {
+			this.proxy = new HttpProxy(cdaProxy.proxyIp(), cdaProxy.proxyPort(), cdaProxy.proxyUsername(), cdaProxy.proxyPassword());
 			
 			return this;
 		}
@@ -236,7 +236,7 @@ public class Cda {
 		}
 	}
 	
-	static class HttpProxy implements CdarProxy {
+	static class HttpProxy implements CdaProxy {
 		
 		private String ip;
 		

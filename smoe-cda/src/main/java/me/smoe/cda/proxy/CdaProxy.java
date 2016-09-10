@@ -15,7 +15,7 @@
  */
 package me.smoe.cda.proxy;
 
-public interface CdarProxy {
+public interface CdaProxy {
 
 	String proxyIp();
 	

@@ -21,9 +21,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 import me.smoe.cda.core.Cda;
-import me.smoe.cda.proxy.CdarProxy;
+import me.smoe.cda.proxy.CdaProxy;
 
-public class ZeroProxy implements CdarProxy {
+public class ZeroProxy implements CdaProxy {
 	
 	// ZeroProxy 动态切换IP, 需要请联系adar-w@outlook.com
 	private static final String CENTER_NODE = "http://175.55.84.120:16227/api/proxy/node";

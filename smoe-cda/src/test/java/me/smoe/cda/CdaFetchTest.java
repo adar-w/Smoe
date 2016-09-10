@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.smoe.cdar;
+package me.smoe.cda;
 
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 
 import me.smoe.cda.core.Cda;
 
-public class CdarFetchTest {
+public class CdaFetchTest {
 	
 	private static final String PATH_BASE_DIR = "/Users/adar-w/Work/tmp/";
 
