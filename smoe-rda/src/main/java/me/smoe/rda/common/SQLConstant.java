@@ -13,30 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.smoe.cdar.proxy.zeroproxy;
+package me.smoe.rda.common;
 
-import me.smoe.cdar.proxy.zeroproxy.ZeroProxy.Code;
-
-public class ZeroProxyException extends RuntimeException {
-
-	/** serialVersionUID */
-	private static final long serialVersionUID = 1L;
+public interface SQLConstant {
 	
-	private Code code;
+	String EMPTY = "";
 	
-	public ZeroProxyException(Code code, String message) {
-		super(message);
-		
-		this.code = code;
-	}
+	String BLANK = " ";
+	
+	String COMMA = ",";
+	
+	String BRACKETS_LEF = "(";
+	
+	String BRACKETS_RIG = ")";
 
-	public ZeroProxyException(Code code, String message, Throwable cause) {
-		super(message, cause);
-		
-		this.code = code;
-	}
+	String INSERT = "INSERT";
 
-	public Code getCode() {
-		return code;
-	}
+	String DELETE = "DELETE";
+	
+	String UPDATE = "UPDATE";
+	
+	String SELECT = "SELECT";
+	
+	String INSERT_SM = "INSERT INTO %s %s VALUES (%s)";
+	
 }

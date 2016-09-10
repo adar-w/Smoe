@@ -15,8 +15,6 @@
  */
 package me.smoe.rda;
 
-import java.util.Arrays;
-
 import me.smoe.rda.core.Rda;
 
 public class TestRda {
@@ -28,6 +26,11 @@ public class TestRda {
 	}
 
 	public static void main(String[] args) throws Exception {
-		Rda.at(CAM.class).find(Arrays.asList(1L));
+		CAM cam = new CAM();
+		cam.setId(1L);
+		cam.setName("hah");
+		
+//		Rda.at(CAM.class).save(cam);
+		Rda.save(cam);
 	}
 }

@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.smoe.cdar.proxy.zeroproxy;
+package me.smoe.cda.proxy.zeroproxy;
 
 import java.util.concurrent.TimeUnit;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
-import me.smoe.cdar.core.Cdar;
-import me.smoe.cdar.proxy.CdarProxy;
+import me.smoe.cda.core.Cda;
+import me.smoe.cda.proxy.CdarProxy;
 
 public class ZeroProxy implements CdarProxy {
 	
@@ -59,9 +59,9 @@ public class ZeroProxy implements CdarProxy {
 	}
 	
 	private static ZeroProxy proxy0() throws Exception {
-		String proxyData = Cdar.connect(CENTER_NODE)
-	   			   			   .header("dsb_client_key", "Duoshoubang")
-	   			   			   .text();
+		String proxyData = Cda.connect(CENTER_NODE)
+	   			   			  .header("dsb_client_key", "Duoshoubang")
+	   			   			  .text();
 
 		return parseProxyData(proxyData);
 	}

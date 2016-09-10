@@ -19,18 +19,18 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import me.smoe.cdar.core.Cdar;
+import me.smoe.cda.core.Cda;
 
 public class CdarFetchTest {
 	
 	private static final String PATH_BASE_DIR = "/Users/adar-w/Work/tmp/";
 
 	public static void main(String[] args) throws Exception {
-		fetch("http://image.baidu.com/search/index?tn=baiduimage&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fm=result&fr=&sf=1&fmq=1466438890020_R&pv=&ic=0&nc=1&z=&se=1&showtab=1&fb=0&width=&height=&face=0&istype=2&itg=0&ie=utf-8&word=麻仓忧");
+		fetch("http://image.baidu.com/search/index?tn=baiduimage&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fm=result&fr=&sf=1&fmq=1466438890020_R&pv=&ic=0&nc=1&z=&se=1&showtab=1&fb=0&width=&height=&face=0&istype=2&itg=0&ie=utf-8&word=王祖贤");
 	}
 
 	private static void fetch(String url) throws Exception {
-		String fullText = Cdar.connect(url).text();
+		String fullText = Cda.connect(url).text();
 		
 		Pattern pattern = Pattern.compile("(http://[^\"]*.jpg)\"");
 		Matcher matcher = pattern.matcher(fullText);
@@ -49,7 +49,7 @@ public class CdarFetchTest {
 		System.out.println(String.format("Download... %s", url));
 		
 		try {
-			Cdar.connect(url).download(PATH_BASE_DIR + new Date().getTime() + ".jpg");
+			Cda.connect(url).download(PATH_BASE_DIR + new Date().getTime() + ".jpg");
 		} catch (Exception e) {
 		}
 	}

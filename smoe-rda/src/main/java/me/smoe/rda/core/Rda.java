@@ -23,7 +23,7 @@ import me.smoe.rda.exception.RdaException;
 import me.smoe.rda.handler.RdaHandler;
 import me.smoe.rda.handler.impl.StandardRdaHandler;
 
-public class Rda<T> {
+public final class Rda<T> {
 	
 	private static final RdaHandler handler;
 	static {
@@ -46,6 +46,15 @@ public class Rda<T> {
 
 	public static <T> RdaBe<T> at(Class<T> clazz) {
 		return new RdaBe<T>(clazz);
+	}
+
+	// TODO
+	public static void save(Object entity) {
+		handler.save(entity);
+	}
+	
+	public static void save(Iterable<Object> entities) {
+		handler.save(entities);
 	}
 	
 	public static class RdaBe<T> {
@@ -108,7 +117,7 @@ public class Rda<T> {
 			return handler.count(clazz, entity);
 		}
 
-		public boolean exists(Class<T> clazz, Serializable id) throws RdaException {
+		public boolean exists(Serializable id) throws RdaException {
 			return handler.exists(clazz, id);
 		}
 

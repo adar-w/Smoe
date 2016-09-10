@@ -21,7 +21,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import me.smoe.cdar.core.Cdar;
+import me.smoe.cda.core.Cda;
 
 public class CdarProxyTest {
 	
@@ -32,7 +32,7 @@ public class CdarProxyTest {
 	private static final String API_PATH = "http://apis.baidu.com/txapi/mvtp/meinv";
 
 	public static void main(String[] args) throws Exception {
-		String content = Cdar.connect(API_PATH)
+		String content = Cda.connect(API_PATH)
 //							 .proxy(ZeroProxy.proxy())
 							 .header("apikey", API_KEY)
 						 	 .urlParam("num", "10")
@@ -44,7 +44,7 @@ public class CdarProxyTest {
 			
 			System.out.println(String.format("Download... %s", pic.getString("title")));
 			
-			Cdar.connect(pic.getString("picUrl")).download(PATH_BASE_DIR + new Date().getTime() + ".jpg");
+			Cda.connect(pic.getString("picUrl")).download(PATH_BASE_DIR + new Date().getTime() + ".jpg");
 		}
 	}
 }

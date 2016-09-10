@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.smoe.cdar.core;
+package me.smoe.cda.core;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -31,15 +31,15 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import me.smoe.cdar.proxy.CdarProxy;
+import me.smoe.cda.proxy.CdarProxy;
 
-public class Cdar {
+public class Cda {
 
-	public static CdarBuilder connect(String url) {
-		return new CdarBuilder(url);
+	public static CdaBuilder connect(String url) {
+		return new CdaBuilder(url);
 	}
 	
-	public static class CdarBuilder {
+	public static class CdaBuilder {
 		
 		private static final HttpMethod DEFAULT_HTTPMETHOD = HttpMethod.GET;
 		
@@ -61,61 +61,61 @@ public class Cdar {
 		
 		private CdarProxy proxy;
 		
-		public CdarBuilder(String url) {
+		public CdaBuilder(String url) {
 			this.url = url;
 			this.method = DEFAULT_HTTPMETHOD;
 			this.timeout = DEFAULT_TIMEOUT;
 		}
 		
-		public CdarBuilder method(HttpMethod method) {
+		public CdaBuilder method(HttpMethod method) {
 			this.method = method;
 			
 			return this;
 		}
 
-		public CdarBuilder post() {
+		public CdaBuilder post() {
 			method(HttpMethod.POST);
 			
 			return this;
 		}
 		
-		public CdarBuilder timeout(int timeout) {
+		public CdaBuilder timeout(int timeout) {
 			this.timeout = timeout;
 			
 			return this;
 		}
 		
-		public CdarBuilder header(String name, String value) {
+		public CdaBuilder header(String name, String value) {
 			headers.put(name, value);
 			
 			return this;
 		}
 		
-		public CdarBuilder formdata(String name, Object value){
+		public CdaBuilder formdata(String name, Object value){
 			formdatas.put(name, value);
 
 			return this;
 		}
 
-		public CdarBuilder urlParam(String name, String value){
+		public CdaBuilder urlParam(String name, String value){
 			urlParams.put(name, value);
 			
 			return this;
 		}
 		
-		public CdarBuilder body(String body) {
+		public CdaBuilder body(String body) {
 			this.body = body;
 			
 			return this;
 		}
 		
-		public CdarBuilder proxy(String ip, int port, String username, String password) {
+		public CdaBuilder proxy(String ip, int port, String username, String password) {
 			this.proxy = new HttpProxy(ip, port, username, password);
 			
 			return this;
 		}
 
-		public CdarBuilder proxy(CdarProxy cdarProxy) {
+		public CdaBuilder proxy(CdarProxy cdarProxy) {
 			this.proxy = new HttpProxy(cdarProxy.proxyIp(), cdarProxy.proxyPort(), cdarProxy.proxyUsername(), cdarProxy.proxyPassword());
 			
 			return this;

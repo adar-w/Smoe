@@ -13,14 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.smoe.rda.exception;
+package me.smoe.cda.proxy.zeroproxy;
 
-public class RdaException extends RuntimeException {
+import me.smoe.cda.proxy.zeroproxy.ZeroProxy.Code;
 
+public class ZeroProxyException extends RuntimeException {
+
+	/** serialVersionUID */
 	private static final long serialVersionUID = 1L;
 	
-	public RdaException(Throwable cause) {
-        super(cause);
-    }
+	private Code code;
+	
+	public ZeroProxyException(Code code, String message) {
+		super(message);
+		
+		this.code = code;
+	}
 
+	public ZeroProxyException(Code code, String message, Throwable cause) {
+		super(message, cause);
+		
+		this.code = code;
+	}
+
+	public Code getCode() {
+		return code;
+	}
 }
