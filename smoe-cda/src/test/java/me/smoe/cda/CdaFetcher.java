@@ -20,6 +20,6 @@ import me.smoe.cda.core.Cda;
 public class CdaFetcher {
 
 	public static void main(String[] args) throws Exception {
-		Cda.connect("https://vt.tumblr.com/tumblr_o6l5rm2gSX1vnl0qg_480.mp4");
+		Cda.connect("http://192.168.0.11:8080/1/11.mp4").download("/Users/adar-w/Work/tmp/2.mp4");
 	}
 }

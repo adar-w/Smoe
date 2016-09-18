@@ -43,7 +43,7 @@ public class Cda {
 		
 		private static final HttpMethod DEFAULT_HTTPMETHOD = HttpMethod.GET;
 		
-		private static final int DEFAULT_TIMEOUT = 60 * 1000; 
+		private static final int DEFAULT_TIMEOUT = Integer.MAX_VALUE; 
 		
 		private String url;
 		
