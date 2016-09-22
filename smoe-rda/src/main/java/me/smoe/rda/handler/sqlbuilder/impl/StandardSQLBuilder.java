@@ -16,6 +16,7 @@
 package me.smoe.rda.handler.sqlbuilder.impl;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import me.smoe.rda.common.Assert;
 import me.smoe.rda.common.SQLConstant;
@@ -28,8 +29,17 @@ public class StandardSQLBuilder implements SQLBuilder {
 	public <T> String save(T entity) {
 		Assert.notNull(entity);
 
-		String[] fields = SQLBuilder.fields(entity);
-		return String.format(SQLConstant.INSERT_SM, SQLBuilder.tableName(entity), fields[0], fields[1]);
+		Map<String, Object> fields = SQLBuilder.fields(entity);
+		
+		String tableName = SQLBuilder.tableName(entity);
+		
+		String fieldsName = String.join(SQLConstant.EMPTY, fields.keySet());
+		String fieldsParams = "1";
+		
+		
+//		return String.format(SQLConstant.INSERT_SM, SQLBuilder.tableName(entity), fields[0], fields[1]);
+				
+		return null;
 	}
 
 	@Override

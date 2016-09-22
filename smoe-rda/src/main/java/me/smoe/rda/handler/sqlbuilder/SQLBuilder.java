@@ -16,12 +16,11 @@
 package me.smoe.rda.handler.sqlbuilder;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import me.smoe.rda.common.Assert;
-import me.smoe.rda.common.SQLConstant;
 import me.smoe.rda.exception.RdaException;
 
 public interface SQLBuilder {
@@ -32,23 +31,29 @@ public interface SQLBuilder {
 		return entity.getClass().getSimpleName();
 	} 
 	
-	static <T> String[] fields(T entity) {
+	static <T> Map<String, Object> fields(T entity) {
 		Assert.notNull(entity);
 		
-		List<String> fieldNames = new ArrayList<>();
-		List<String> fieldValues = new ArrayList<>();
+		Map<String, Object> fields = new LinkedHashMap<>();
 		Stream.of(entity.getClass().getDeclaredFields()).forEach((e) -> {
 			try {
 				e.setAccessible(true);
 				
-				fieldNames.add(e.getName());
-				fieldValues.add(String.valueOf(e.get(entity)));
+				fields.put(e.getName(), e.get(entity));
 			} catch (Exception exception) {
 				throw new RdaException(exception);
 			}
 		});
 		
-		return new String[]{String.join(SQLConstant.COMMA + SQLConstant.BLANK, fieldNames), String.join(SQLConstant.COMMA + SQLConstant.BLANK, fieldValues)};
+		return fields;
+	}
+	
+	static String buildPlaceholders(int count) {
+		StringBuilder buf = new StringBuilder();
+		
+		Stream.generate(() -> "? ").limit(count).forEach(buf::append);
+		
+		return buf.toString().substring(0, buf.length() - 1);
 	}
 	
 	<T> String save(T entity);

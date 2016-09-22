@@ -20,14 +20,13 @@ import java.io.Serializable;
 import javax.sql.DataSource;
 
 import me.smoe.rda.exception.RdaException;
-import me.smoe.rda.handler.RdaHandler;
-import me.smoe.rda.handler.impl.StandardRdaHandler;
+import me.smoe.rda.handler.impl.RdaHandler;
 
 public final class Rda<T> {
 	
 	private static final RdaHandler handler;
 	static {
-		handler = new StandardRdaHandler();
+		handler = new RdaHandler();
 	}
 
 	private static boolean init;

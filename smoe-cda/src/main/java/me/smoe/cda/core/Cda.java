@@ -26,7 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Base64;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -51,11 +51,11 @@ public class Cda {
 		
 		private int timeout;
 		
-		private Map<String, String> headers = new HashMap<String, String>();
+		private Map<String, String> headers = new LinkedHashMap<String, String>();
 
-		private Map<String, Object> formdatas = new HashMap<String, Object>();
+		private Map<String, Object> formdatas = new LinkedHashMap<String, Object>();
 
-		private Map<String, String> urlParams = new HashMap<String, String>();
+		private Map<String, String> urlParams = new LinkedHashMap<String, String>();
 
 		private String body;
 		

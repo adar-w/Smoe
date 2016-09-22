@@ -18,98 +18,82 @@ package me.smoe.rda.handler.impl;
 import java.io.Serializable;
 
 import me.smoe.rda.exception.RdaException;
-import me.smoe.rda.handler.RdaHandler;
 import me.smoe.rda.handler.sqlbuilder.SQLBuilder;
 import me.smoe.rda.handler.sqlbuilder.impl.StandardSQLBuilder;
 
-public class StandardRdaHandler implements RdaHandler {
-	
+public class RdaHandler {
 	
 	private static final SQLBuilder sqlBuilder;
 	static {
 		sqlBuilder = new StandardSQLBuilder();
 	}
 
-	@Override
 	public <T> void save(T entity) {
 		String sql = sqlBuilder.save(entity);
 		
 		System.out.println(sqlBuilder.save(entity));
 	}
 
-	@Override
 	public <T> void save(Iterable<T> entities) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public <T> void modify(T entity) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	@Override
 	public <T> T findOne(Class<T> clazz, Serializable id) throws RdaException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public <T> Iterable<T> find(Class<T> clazz) throws RdaException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public <T> Iterable<T> find(Class<T> clazz, T entity) throws RdaException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public <T> Iterable<T> find(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public <T> Iterable<T> findAll(Class<T> clazz) throws RdaException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public <T> void delete(Class<T> clazz, Serializable id) throws RdaException {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public <T> void delete(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public <T> void deleteAll(Class<T> clazz) throws RdaException {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public <T> long count(Class<T> clazz, T entity) throws RdaException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public <T> boolean exists(Class<T> clazz, Serializable id) throws RdaException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public <T> Long build(String sql) throws RdaException {
 		// TODO Auto-generated method stub
 		return null;
