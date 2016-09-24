@@ -6,13 +6,21 @@
 		<artifactId>root</artifactId>
 		<version>0.0.1</version>
 	</parent>
-	
+
 	<artifactId>smoe-mda</artifactId>
-	
+
 	<developers>
 		<developer>
 			<name>Adar.w</name>
 			<email>adar-w@outlook.com</email>
 		</developer>
 	</developers>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 </project>
