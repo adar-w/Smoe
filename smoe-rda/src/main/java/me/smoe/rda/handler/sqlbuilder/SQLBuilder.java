@@ -20,7 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import me.smoe.rda.common.Assert;
+import me.smoe.mda.Assert;
 import me.smoe.rda.exception.RdaException;
 
 public interface SQLBuilder {
@@ -51,35 +51,33 @@ public interface SQLBuilder {
 	static String buildPlaceholders(int count) {
 		StringBuilder buf = new StringBuilder();
 		
-		Stream.generate(() -> "? ").limit(count).forEach(buf::append);
+		Stream.generate(() -> "?, ").limit(count).forEach(buf::append);
 		
-		return buf.toString().substring(0, buf.length() - 1);
+		return buf.toString().substring(0, buf.length() - 2);
 	}
 	
-	<T> String save(T entity);
+	<T> SQLData save(T entity);
 
-	<T> String save(Iterable<T> entities);
+	<T> SQLData modify(T entity);
 	
-	<T> String modify(T entity);
-	
-	<T> String findOne(Class<T> clazz, Serializable id) throws RdaException;
+	<T> SQLData findOne(Class<T> clazz, Serializable id) throws RdaException;
 		
-	<T> String find(Class<T> clazz) throws RdaException;
+	<T> SQLData find(Class<T> clazz) throws RdaException;
 
-	<T> String find(Class<T> clazz, T entity) throws RdaException;
+	<T> SQLData find(Class<T> clazz, T entity) throws RdaException;
 	
-	<T> String find(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException;
+	<T> SQLData find(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException;
 
-	<T> String findAll(Class<T> clazz) throws RdaException;
+	<T> SQLData findAll(Class<T> clazz) throws RdaException;
 
-	<T> String delete(Class<T> clazz, Serializable id) throws RdaException;
+	<T> SQLData delete(Class<T> clazz, Serializable id) throws RdaException;
 
-	<T> String delete(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException;
+	<T> SQLData delete(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException;
 
-	<T> String deleteAll(Class<T> clazz) throws RdaException;
+	<T> SQLData deleteAll(Class<T> clazz) throws RdaException;
 
-	<T> String count(Class<T> clazz, T entity) throws RdaException;
+	<T> SQLData count(Class<T> clazz, T entity) throws RdaException;
 
-	<T> String exists(Class<T> clazz, Serializable id) throws RdaException;
+	<T> SQLData exists(Class<T> clazz, Serializable id) throws RdaException;
 
 }

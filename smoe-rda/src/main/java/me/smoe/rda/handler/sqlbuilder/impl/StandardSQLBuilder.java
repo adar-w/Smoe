@@ -18,98 +18,91 @@ package me.smoe.rda.handler.sqlbuilder.impl;
 import java.io.Serializable;
 import java.util.Map;
 
-import me.smoe.rda.common.Assert;
+import me.smoe.mda.Assert;
 import me.smoe.rda.common.SQLConstant;
 import me.smoe.rda.exception.RdaException;
 import me.smoe.rda.handler.sqlbuilder.SQLBuilder;
+import me.smoe.rda.handler.sqlbuilder.SQLData;
 
 public class StandardSQLBuilder implements SQLBuilder {
 
 	@Override
-	public <T> String save(T entity) {
+	public <T> SQLData save(T entity) {
 		Assert.notNull(entity);
 
 		Map<String, Object> fields = SQLBuilder.fields(entity);
 		
-		String tableName = SQLBuilder.tableName(entity);
+		String fieldsName = String.join(SQLConstant.COMMA, fields.keySet());
 		
-		String fieldsName = String.join(SQLConstant.EMPTY, fields.keySet());
-		String fieldsParams = "1";
+		return SQLData.be(String.format(SQLConstant.INSERT_SM, SQLBuilder.tableName(entity), fieldsName, SQLBuilder.buildPlaceholders(fields.size())), fields.values());
+	}
+
+	@Override
+	public <T> SQLData modify(T entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> SQLData findOne(Class<T> clazz, Serializable id) throws RdaException {
+		Assert.notNull(clazz);
+		Assert.notNull(id);
 		
 		
-//		return String.format(SQLConstant.INSERT_SM, SQLBuilder.tableName(entity), fields[0], fields[1]);
-				
+		
 		return null;
 	}
 
 	@Override
-	public <T> String save(Iterable<T> entities) {
+	public <T> SQLData find(Class<T> clazz) throws RdaException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <T> String modify(T entity) {
+	public <T> SQLData find(Class<T> clazz, T entity) throws RdaException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <T> String findOne(Class<T> clazz, Serializable id) throws RdaException {
+	public <T> SQLData find(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <T> String find(Class<T> clazz) throws RdaException {
+	public <T> SQLData findAll(Class<T> clazz) throws RdaException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <T> String find(Class<T> clazz, T entity) throws RdaException {
+	public <T> SQLData delete(Class<T> clazz, Serializable id) throws RdaException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <T> String find(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException {
+	public <T> SQLData delete(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <T> String findAll(Class<T> clazz) throws RdaException {
+	public <T> SQLData deleteAll(Class<T> clazz) throws RdaException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <T> String delete(Class<T> clazz, Serializable id) throws RdaException {
+	public <T> SQLData count(Class<T> clazz, T entity) throws RdaException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <T> String delete(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> String deleteAll(Class<T> clazz) throws RdaException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> String count(Class<T> clazz, T entity) throws RdaException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> String exists(Class<T> clazz, Serializable id) throws RdaException {
+	public <T> SQLData exists(Class<T> clazz, Serializable id) throws RdaException {
 		// TODO Auto-generated method stub
 		return null;
 	}

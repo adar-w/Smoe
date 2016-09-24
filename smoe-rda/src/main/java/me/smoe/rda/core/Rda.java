@@ -47,15 +47,6 @@ public final class Rda<T> {
 		return new RdaBe<T>(clazz);
 	}
 
-	// TODO
-	public static void save(Object entity) {
-		handler.save(entity);
-	}
-	
-	public static void save(Iterable<Object> entities) {
-		handler.save(entities);
-	}
-	
 	public static class RdaBe<T> {
 		
 		private Class<T> clazz;
@@ -68,12 +59,8 @@ public final class Rda<T> {
 			}
 		}
 
-		public void save(T entity) {
+		public void save(T entity) throws Exception {
 			handler.save(entity);
-		}
-
-		public void save(Iterable<T> entities) {
-			handler.save(entities);
 		}
 
 		public T findOne(Serializable id) throws RdaException {

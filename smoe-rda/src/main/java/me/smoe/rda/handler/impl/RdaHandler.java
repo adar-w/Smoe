@@ -16,9 +16,13 @@
 package me.smoe.rda.handler.impl;
 
 import java.io.Serializable;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
+import me.smoe.rda.core.JDBC;
 import me.smoe.rda.exception.RdaException;
 import me.smoe.rda.handler.sqlbuilder.SQLBuilder;
+import me.smoe.rda.handler.sqlbuilder.SQLData;
 import me.smoe.rda.handler.sqlbuilder.impl.StandardSQLBuilder;
 
 public class RdaHandler {
@@ -28,16 +32,12 @@ public class RdaHandler {
 		sqlBuilder = new StandardSQLBuilder();
 	}
 
-	public <T> void save(T entity) {
-		String sql = sqlBuilder.save(entity);
+	public <T> void save(T entity) throws SQLException, Exception {
+		SQLData sql = sqlBuilder.save(entity);
 		
-		System.out.println(sqlBuilder.save(entity));
+		JDBC.executeUpdate(sql.getSql(), sql.getParams());
 	}
 
-	public <T> void save(Iterable<T> entities) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public <T> void modify(T entity) {
 		// TODO Auto-generated method stub

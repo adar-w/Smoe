@@ -27,10 +27,9 @@ public class TestRda {
 
 	public static void main(String[] args) throws Exception {
 		CAM cam = new CAM();
-		cam.setId(1L);
+		cam.setId(2L);
 		cam.setName("hah");
 		
-//		Rda.at(CAM.class).save(cam);
-		Rda.save(cam);
+		Rda.at(CAM.class).save(cam);
 	}
 }

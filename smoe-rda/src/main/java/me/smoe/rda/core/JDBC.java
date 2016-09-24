@@ -17,10 +17,13 @@ package me.smoe.rda.core;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Collection;
 
 import javax.sql.DataSource;
 
-final class JDBC {
+public final class JDBC {
 	
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
 	
@@ -58,7 +61,27 @@ final class JDBC {
 		}
 	}
 
-	static Connection connection() throws Exception {
+	public static Connection connection() throws Exception {
 		return useDS ? ds.getConnection() : DriverManager.getConnection(url, un, pw); 
+	}
+	
+	public static int executeUpdate(String sql, Collection<Object> params) throws Exception {
+		return statement(sql, params).executeUpdate();
+	}
+	
+	public static ResultSet executeQuery(String sql, Collection<Object> params) throws Exception {
+		return statement(sql, params).executeQuery();
+	}
+	
+	private static PreparedStatement statement(String sql, Collection<Object> params) throws Exception {
+		PreparedStatement prepareStatement = connection().prepareStatement(sql);
+
+		int index = 1;
+		for (Object param : params) {
+			prepareStatement.setObject(index, param);
+			index++;
+		}
+		
+		return prepareStatement;
 	}
 }
