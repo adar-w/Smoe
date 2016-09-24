@@ -17,7 +17,7 @@
 	</developers>
 
 	<properties>
-		<mysql-connector.version>5.1.6</mysql-connector.version>
+		<mysql-connector.version>5.1.37</mysql-connector.version>
 	</properties>
 
 	<dependencies>
@@ -25,6 +25,11 @@
 			<groupId>me.some</groupId>
 			<artifactId>smoe-mda</artifactId>
 			<version>${version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
 		</dependency>
 	
 		<dependency>

@@ -16,13 +16,9 @@
 package me.smoe.rda.handler.impl;
 
 import java.io.Serializable;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
-import me.smoe.rda.core.JDBC;
-import me.smoe.rda.exception.RdaException;
+import me.smoe.rda.JDBC;
 import me.smoe.rda.handler.sqlbuilder.SQLBuilder;
-import me.smoe.rda.handler.sqlbuilder.SQLData;
 import me.smoe.rda.handler.sqlbuilder.impl.StandardSQLBuilder;
 
 public class RdaHandler {
@@ -32,10 +28,8 @@ public class RdaHandler {
 		sqlBuilder = new StandardSQLBuilder();
 	}
 
-	public <T> void save(T entity) throws SQLException, Exception {
-		SQLData sql = sqlBuilder.save(entity);
-		
-		JDBC.executeUpdate(sql.getSql(), sql.getParams());
+	public <T> void save(T entity) {
+		JDBC.execute(sqlBuilder.save(entity));
 	}
 
 
@@ -44,57 +38,55 @@ public class RdaHandler {
 		
 	}
 	
-	public <T> T findOne(Class<T> clazz, Serializable id) throws RdaException {
+	public <T> T findOne(Class<T> clazz, Serializable id) {
+		return JDBC.query(sqlBuilder.findOne(clazz, id), clazz);
+	}
+
+	public <T> Iterable<T> find(Class<T> clazz) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public <T> Iterable<T> find(Class<T> clazz) throws RdaException {
+	public <T> Iterable<T> find(Class<T> clazz, T entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public <T> Iterable<T> find(Class<T> clazz, T entity) throws RdaException {
+	public <T> Iterable<T> find(Class<T> clazz, Iterable<? extends Serializable> ids) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public <T> Iterable<T> find(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException {
+	public <T> Iterable<T> findAll(Class<T> clazz) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public <T> Iterable<T> findAll(Class<T> clazz) throws RdaException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public <T> void delete(Class<T> clazz, Serializable id) throws RdaException {
+	public <T> void delete(Class<T> clazz, Serializable id) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public <T> void delete(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException {
+	public <T> void delete(Class<T> clazz, Iterable<? extends Serializable> ids) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public <T> void deleteAll(Class<T> clazz) throws RdaException {
+	public <T> void deleteAll(Class<T> clazz) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public <T> long count(Class<T> clazz, T entity) throws RdaException {
+	public <T> long count(Class<T> clazz, T entity) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	public <T> boolean exists(Class<T> clazz, Serializable id) throws RdaException {
-		// TODO Auto-generated method stub
-		return false;
+	public <T> boolean exists(Class<T> clazz, Serializable id) {
+		return findOne(clazz, id) != null;
 	}
 
-	public <T> Long build(String sql) throws RdaException {
+	public <T> Long build(String sql) {
 		// TODO Auto-generated method stub
 		return null;
 	}

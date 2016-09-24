@@ -15,7 +15,9 @@
  */
 package me.smoe.rda;
 
-import me.smoe.rda.core.Rda;
+import org.junit.Test;
+
+import me.smoe.mda.Assert;
 
 public class TestRda {
 	
@@ -24,12 +26,22 @@ public class TestRda {
 	static {
 		Rda.to(URL, "root", "adar");
 	}
-
-	public static void main(String[] args) throws Exception {
+	
+	@Test
+	public void save() {
 		CAM cam = new CAM();
-		cam.setId(2L);
+		cam.setId(3L);
 		cam.setName("hah");
 		
 		Rda.at(CAM.class).save(cam);
+	}
+
+	@Test
+	public void findOne() {
+		Long id = 630005L;
+		
+		CAM cam = Rda.at(CAM.class).findOne(id);
+		
+		Assert.isTrue(id.equals(cam.getId()));
 	}
 }

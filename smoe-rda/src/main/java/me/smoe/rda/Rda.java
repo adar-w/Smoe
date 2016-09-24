@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.smoe.rda.core;
+package me.smoe.rda;
 
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 
 import javax.sql.DataSource;
 
@@ -43,24 +44,54 @@ public final class Rda<T> {
 		init = true;
 	}
 
-	public static <T> RdaBe<T> at(Class<T> clazz) {
-		return new RdaBe<T>(clazz);
+	public static <T> Be<T> at(Class<T> clazz) {
+		return new Be<T>(clazz);
 	}
 
-	public static class RdaBe<T> {
+	public static class Be<T> {
 		
 		private Class<T> clazz;
 		
-		RdaBe(Class<T> clazz) {
+		private int[] limit;
+		
+		private LinkedHashMap<String, Boolean> orderBy;
+		
+		Be(Class<T> clazz) {
 			if (init) {
 				this.clazz = clazz;
 			} else {
 				throw new RuntimeException("Need init.");
 			}
 		}
+		
+		public Be<T> limit(int offset) {
+			this.limit = new int[]{offset};
+			
+			return this;
+		}
 
-		public void save(T entity) throws Exception {
+		public Be<T> limit(int offset, int rows) {
+			this.limit = new int[]{offset, rows};
+			
+			return this;
+		}
+		
+		public Be<T> orderBy(String field) {
+			return orderBy(field, true);
+		}
+
+		public Be<T> orderBy(String field, boolean isAsc) {
+			orderBy.put(field, isAsc);
+			
+			return this;
+		}
+
+		public void save(T entity) {
 			handler.save(entity);
+		}
+		
+		public void modify(T entity) {
+			handler.modify(entity);
 		}
 
 		public T findOne(Serializable id) throws RdaException {
@@ -110,6 +141,18 @@ public final class Rda<T> {
 		public Long build(String sql) throws RdaException {
 			// TODO
 			return null;
+		}
+
+		public Class<T> getClazz() {
+			return clazz;
+		}
+
+		public int[] getLimit() {
+			return limit;
+		}
+
+		public LinkedHashMap<String, Boolean> getOrderBy() {
+			return orderBy;
 		}
 	}
 }

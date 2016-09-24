@@ -13,15 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.smoe.rda.core;
+package me.smoe.rda;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Collection;
+import java.util.List;
 
 import javax.sql.DataSource;
+
+import me.smoe.rda.exception.RdaException;
+import me.smoe.rda.handler.sqlbuilder.SQLData;
+import me.smoe.rda.mapping.Mapping;
 
 public final class JDBC {
 	
@@ -65,16 +69,32 @@ public final class JDBC {
 		return useDS ? ds.getConnection() : DriverManager.getConnection(url, un, pw); 
 	}
 	
-	public static int executeUpdate(String sql, Collection<Object> params) throws Exception {
-		return statement(sql, params).executeUpdate();
+	public static int execute(SQLData data) {
+		try (Connection connection = connection()) {
+			return statement(connection, data.getSql(), data.getParams()).executeUpdate();
+		} catch (Exception e) {
+			throw new RdaException(e);
+		}
 	}
 	
-	public static ResultSet executeQuery(String sql, Collection<Object> params) throws Exception {
-		return statement(sql, params).executeQuery();
+	public static <T> T query(SQLData data, Class<T> clazz) {
+		try (Connection connection = connection()) {
+			return Mapping.to(statement(connection, data.getSql(), data.getParams()).executeQuery(), clazz);
+		} catch (Exception e) {
+			throw new RdaException(e);
+		}
+	}
+
+	public static <T> List<T> querys(SQLData data, Class<T> clazz) {
+		try (Connection connection = connection()) {
+			return Mapping.tos(statement(connection, data.getSql(), data.getParams()).executeQuery(), clazz);
+		} catch (Exception e) {
+			throw new RdaException(e);
+		}
 	}
 	
-	private static PreparedStatement statement(String sql, Collection<Object> params) throws Exception {
-		PreparedStatement prepareStatement = connection().prepareStatement(sql);
+	private static PreparedStatement statement(Connection connection, String sql, Collection<Object> params) throws Exception {
+		PreparedStatement prepareStatement = connection.prepareStatement(sql);
 
 		int index = 1;
 		for (Object param : params) {

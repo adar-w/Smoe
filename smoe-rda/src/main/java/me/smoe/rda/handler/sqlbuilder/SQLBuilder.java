@@ -16,8 +16,6 @@
 package me.smoe.rda.handler.sqlbuilder;
 
 import java.io.Serializable;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.stream.Stream;
 
 import me.smoe.mda.Assert;
@@ -28,27 +26,16 @@ public interface SQLBuilder {
 	static <T> String tableName(T entity) {
 		Assert.notNull(entity);
 		
-		return entity.getClass().getSimpleName();
-	} 
-	
-	static <T> Map<String, Object> fields(T entity) {
-		Assert.notNull(entity);
-		
-		Map<String, Object> fields = new LinkedHashMap<>();
-		Stream.of(entity.getClass().getDeclaredFields()).forEach((e) -> {
-			try {
-				e.setAccessible(true);
-				
-				fields.put(e.getName(), e.get(entity));
-			} catch (Exception exception) {
-				throw new RdaException(exception);
-			}
-		});
-		
-		return fields;
+		return tableName(entity.getClass());
 	}
 	
-	static String buildPlaceholders(int count) {
+	static <T> String tableName(Class<T> clazz) {
+		Assert.notNull(clazz);
+		
+		return clazz.getSimpleName();
+	}
+	
+	static String placeholders(int count) {
 		StringBuilder buf = new StringBuilder();
 		
 		Stream.generate(() -> "?, ").limit(count).forEach(buf::append);

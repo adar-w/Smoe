@@ -35,6 +35,8 @@ public interface SQLConstant {
 	
 	String SELECT = "SELECT";
 	
-	String INSERT_SM = "INSERT INTO %s (%s) VALUES (%s)";
+	String SM_INSERT = "INSERT INTO %s (%s) VALUES (%s)";
+	
+	String SM_FINDONE = "SELECT %s FROM %s WHERE id = %s";
 	
 }

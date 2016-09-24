@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import me.smoe.mda.Assert;
+import me.smoe.mda.Clazzs;
 import me.smoe.rda.common.SQLConstant;
 import me.smoe.rda.exception.RdaException;
 import me.smoe.rda.handler.sqlbuilder.SQLBuilder;
@@ -30,11 +31,11 @@ public class StandardSQLBuilder implements SQLBuilder {
 	public <T> SQLData save(T entity) {
 		Assert.notNull(entity);
 
-		Map<String, Object> fields = SQLBuilder.fields(entity);
+		Map<String, Object> fields = Clazzs.fields(entity);
 		
 		String fieldsName = String.join(SQLConstant.COMMA, fields.keySet());
 		
-		return SQLData.be(String.format(SQLConstant.INSERT_SM, SQLBuilder.tableName(entity), fieldsName, SQLBuilder.buildPlaceholders(fields.size())), fields.values());
+		return SQLData.be(String.format(SQLConstant.SM_INSERT, SQLBuilder.tableName(entity), fieldsName, SQLBuilder.placeholders(fields.size())), fields.values());
 	}
 
 	@Override
@@ -48,9 +49,7 @@ public class StandardSQLBuilder implements SQLBuilder {
 		Assert.notNull(clazz);
 		Assert.notNull(id);
 		
-		
-		
-		return null;
+		return SQLData.be(String.format(SQLConstant.SM_FINDONE, String.join(SQLConstant.COMMA, Clazzs.fields(clazz)), SQLBuilder.tableName(clazz), SQLBuilder.placeholders(1)), id);
 	}
 
 	@Override
