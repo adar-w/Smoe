@@ -58,8 +58,7 @@ public class RdaHandler {
 	}
 
 	public <T> Iterable<T> findAll(Class<T> clazz) {
-		// TODO Auto-generated method stub
-		return null;
+		return JDBC.querys(sqlBuilder.findAll(clazz), clazz);
 	}
 
 	public <T> void delete(Class<T> clazz, Serializable id) {

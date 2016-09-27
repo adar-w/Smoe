@@ -30,7 +30,7 @@ public class TestRda {
 	@Test
 	public void save() {
 		CAM cam = new CAM();
-		cam.setId(3L);
+		cam.setId(4L);
 		cam.setName("hah");
 		
 		Rda.at(CAM.class).save(cam);
@@ -43,5 +43,12 @@ public class TestRda {
 		CAM cam = Rda.at(CAM.class).findOne(id);
 		
 		Assert.isTrue(id.equals(cam.getId()));
+	}
+	
+	@Test
+	public void findAll() {
+		for (CAM cam : Rda.at(CAM.class).findAll()) {
+			System.out.println(cam.getId() + " + " + cam.getName());
+		}
 	}
 }

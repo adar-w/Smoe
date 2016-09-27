@@ -16,6 +16,7 @@
 package me.smoe.rda.handler.sqlbuilder.impl;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Map;
 
 import me.smoe.mda.Assert;
@@ -33,9 +34,7 @@ public class StandardSQLBuilder implements SQLBuilder {
 
 		Map<String, Object> fields = Clazzs.fields(entity);
 		
-		String fieldsName = String.join(SQLConstant.COMMA, fields.keySet());
-		
-		return SQLData.be(String.format(SQLConstant.SM_INSERT, SQLBuilder.tableName(entity), fieldsName, SQLBuilder.placeholders(fields.size())), fields.values());
+		return SQLData.be(String.format(SQLConstant.SM_INSERT, SQLBuilder.tableName(entity), SQLBuilder.columns(fields.keySet()), SQLBuilder.placeholders(fields.size())), fields.values().toArray());
 	}
 
 	@Override
@@ -72,8 +71,9 @@ public class StandardSQLBuilder implements SQLBuilder {
 
 	@Override
 	public <T> SQLData findAll(Class<T> clazz) throws RdaException {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.notNull(clazz);
+		
+		return SQLData.be(String.format(SQLConstant.SM_FINDALL, SQLBuilder.tableName(clazz)), Collections.emptyList());
 	}
 
 	@Override

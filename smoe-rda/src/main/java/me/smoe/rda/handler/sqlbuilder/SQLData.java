@@ -12,22 +12,16 @@ public class SQLData {
 	private Collection<Object> params;
 	
 	public static SQLData be(String sql, Object... params) {
-		Assert.notNull(params);
-		
-		return be(sql, Arrays.asList(params));
-	}
-	
-	public static SQLData be(String sql, Collection<Object> params) {
 		Assert.notNull(sql);
 		Assert.notNull(params);
 		
 		SQLData data = new SQLData();
 		data.setSql(sql);
-		data.setParams(params);
+		data.setParams(Arrays.asList(params));
 		
 		return data;
 	}
-
+	
 	public String getSql() {
 		return sql;
 	}

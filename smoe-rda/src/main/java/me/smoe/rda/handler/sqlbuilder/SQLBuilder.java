@@ -16,9 +16,11 @@
 package me.smoe.rda.handler.sqlbuilder;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.stream.Stream;
 
 import me.smoe.mda.Assert;
+import me.smoe.rda.common.SQLConstant;
 import me.smoe.rda.exception.RdaException;
 
 public interface SQLBuilder {
@@ -32,13 +34,17 @@ public interface SQLBuilder {
 	static <T> String tableName(Class<T> clazz) {
 		Assert.notNull(clazz);
 		
-		return clazz.getSimpleName();
+		return clazz.getSimpleName().toLowerCase();
+	}
+	
+	static String columns(Collection<String> columns) {
+		return String.join(SQLConstant.CB, columns);
 	}
 	
 	static String placeholders(int count) {
 		StringBuilder buf = new StringBuilder();
 		
-		Stream.generate(() -> "?, ").limit(count).forEach(buf::append);
+		Stream.generate(() -> SQLConstant.PCB).limit(count).forEach(buf::append);
 		
 		return buf.toString().substring(0, buf.length() - 2);
 	}

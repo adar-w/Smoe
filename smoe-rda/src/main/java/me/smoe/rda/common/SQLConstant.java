@@ -23,6 +23,8 @@ public interface SQLConstant {
 	
 	String COMMA = ",";
 	
+	String PLACEHOLDER = "?";
+	
 	String BRACKETS_LEF = "(";
 	
 	String BRACKETS_RIG = ")";
@@ -38,5 +40,11 @@ public interface SQLConstant {
 	String SM_INSERT = "INSERT INTO %s (%s) VALUES (%s)";
 	
 	String SM_FINDONE = "SELECT %s FROM %s WHERE id = %s";
+	
+	String SM_FINDALL = "SELECT * FROM %s";
+	
+	String CB = SQLConstant.COMMA + SQLConstant.BLANK;
+	
+	String PCB = SQLConstant.PLACEHOLDER + SQLConstant.COMMA + SQLConstant.BLANK;
 	
 }
