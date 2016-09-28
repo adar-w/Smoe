@@ -23,7 +23,7 @@ import javax.sql.DataSource;
 import me.smoe.rda.exception.RdaException;
 import me.smoe.rda.handler.impl.RdaHandler;
 
-public final class Rda<T> {
+public final class Rda {
 	
 	private static final RdaHandler handler;
 	static {
