@@ -20,6 +20,8 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import me.smoe.mda.Assert;
+import me.smoe.mda.Clazzs;
+import me.smoe.rda.annotation.Table;
 import me.smoe.rda.common.SQLConstant;
 import me.smoe.rda.exception.RdaException;
 
@@ -27,6 +29,14 @@ public interface SQLBuilder {
 	
 	static <T> String tableName(T entity) {
 		Assert.notNull(entity);
+		
+		if (Clazzs.hasAnnotation(entity.getClass(), Table.class)) {
+			try {
+				return Clazzs.annotationVal(entity.getClass(), Table.class);
+			} catch (Exception e) {
+				throw new RdaException(e);
+			}
+		}
 		
 		return tableName(entity.getClass());
 	}

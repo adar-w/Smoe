@@ -17,6 +17,7 @@
  */
 package me.smoe.mda;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -24,6 +25,55 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class Clazzs {
+	
+	public static <T, A extends Annotation> boolean hasAnnotation(Class<T> clazz, Class<A> annotation) {
+		Assert.notNull(clazz);
+		Assert.notNull(annotation);
+		
+		return clazz.getAnnotation(annotation) != null;
+	}
+	
+	public static <T, A extends Annotation> String annotationVal(Class<T> clazz, Class<A> annotation) throws Exception {
+		Assert.notNull(clazz);
+		Assert.notNull(annotation);
+		
+		return annotationVal(clazz.getAnnotation(annotation), "value");
+	}
+
+	public static <A extends Annotation> String annotationVal(A annotation) throws Exception {
+		Assert.notNull(annotation);
+
+		return annotationVal(annotation, "value");
+	}
+
+	public static <A extends Annotation> String annotationVal(A annotation, String fieldName) throws Exception {
+		Assert.notNull(annotation);
+		Assert.notNull(fieldName);
+		
+		return methodInvoke(annotation, fieldName, String.class);
+	}
+	
+	public static <E, T> T methodInvoke(E entity, String methodName, Class<T> fieldType) throws Exception {
+		Assert.notNull(entity);
+		Assert.notNull(methodName);
+		Assert.notNull(fieldType);
+		
+		return fieldType.cast(entity.getClass().getDeclaredMethod(methodName).invoke(entity));
+	}
+	
+	public static <E, T> T fieldVal(E entity, String fieldName, Class<T> fieldType) throws Exception {
+		Assert.notNull(entity);
+		Assert.notNull(fieldName);
+		
+		return fieldType.cast(entity.getClass().getField(fieldName).get(entity));
+	}
+
+	public static <E, T> T fieldVal(Class<E> clazz, String fieldName, Class<T> fieldType) throws Exception {
+		Assert.notNull(clazz);
+		Assert.notNull(fieldName);
+		
+		return fieldType.cast(clazz.getField(fieldName).get(null));
+	}
 	
 	public static <T> List<String> fields(Class<T> clazz) {
 		Assert.notNull(clazz);
