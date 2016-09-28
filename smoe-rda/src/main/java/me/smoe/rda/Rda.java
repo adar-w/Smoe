@@ -17,6 +17,7 @@ package me.smoe.rda;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -60,7 +61,7 @@ public final class Rda {
 			if (init) {
 				this.clazz = clazz;
 			} else {
-				throw new RuntimeException("Need init.");
+				throw new RuntimeException("Rda Need init.");
 			}
 		}
 		
@@ -98,19 +99,19 @@ public final class Rda {
 			return handler.findOne(clazz, id);
 		}
 
-		public Iterable<T> find() throws RdaException {
+		public List<T> find() throws RdaException {
 			return handler.find(clazz);
 		}
 
-		public Iterable<T> find(T entity) throws RdaException {
+		public List<T> find(T entity) throws RdaException {
 			return handler.find(clazz, entity);
 		}
 
-		public Iterable<T> find(Iterable<? extends Serializable> ids) throws RdaException {
+		public List<T> find(Iterable<? extends Serializable> ids) throws RdaException {
 			return handler.find(clazz, ids);
 		}
 
-		public Iterable<T> findAll() throws RdaException {
+		public List<T> findAll() throws RdaException {
 			return handler.findAll(clazz);
 		}
 

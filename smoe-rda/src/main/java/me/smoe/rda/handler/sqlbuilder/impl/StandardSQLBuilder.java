@@ -16,7 +16,6 @@
 package me.smoe.rda.handler.sqlbuilder.impl;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.Map;
 
 import me.smoe.mda.Assert;
@@ -73,7 +72,7 @@ public class StandardSQLBuilder implements SQLBuilder {
 	public <T> SQLData findAll(Class<T> clazz) throws RdaException {
 		Assert.notNull(clazz);
 		
-		return SQLData.be(String.format(SQLConstant.SM_FINDALL, SQLBuilder.tableName(clazz)), Collections.emptyList());
+		return SQLData.be(String.format(SQLConstant.SM_FINDALL, SQLBuilder.tableName(clazz)));
 	}
 
 	@Override

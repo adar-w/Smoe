@@ -16,6 +16,7 @@
 package me.smoe.rda.handler.impl;
 
 import java.io.Serializable;
+import java.util.List;
 
 import me.smoe.rda.JDBC;
 import me.smoe.rda.handler.sqlbuilder.SQLBuilder;
@@ -42,22 +43,22 @@ public class RdaHandler {
 		return JDBC.query(sqlBuilder.findOne(clazz, id), clazz);
 	}
 
-	public <T> Iterable<T> find(Class<T> clazz) {
+	public <T> List<T> find(Class<T> clazz) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public <T> Iterable<T> find(Class<T> clazz, T entity) {
+	public <T> List<T> find(Class<T> clazz, T entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public <T> Iterable<T> find(Class<T> clazz, Iterable<? extends Serializable> ids) {
+	public <T> List<T> find(Class<T> clazz, Iterable<? extends Serializable> ids) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public <T> Iterable<T> findAll(Class<T> clazz) {
+	public <T> List<T> findAll(Class<T> clazz) {
 		return JDBC.querys(sqlBuilder.findAll(clazz), clazz);
 	}
 

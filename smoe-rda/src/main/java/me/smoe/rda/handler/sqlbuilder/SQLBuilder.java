@@ -30,19 +30,19 @@ public interface SQLBuilder {
 	static <T> String tableName(T entity) {
 		Assert.notNull(entity);
 		
-		if (Clazzs.hasAnnotation(entity.getClass(), Table.class)) {
-			try {
-				return Clazzs.annotationVal(entity.getClass(), Table.class);
-			} catch (Exception e) {
-				throw new RdaException(e);
-			}
-		}
-		
 		return tableName(entity.getClass());
 	}
 	
 	static <T> String tableName(Class<T> clazz) {
 		Assert.notNull(clazz);
+		
+		if (Clazzs.hasAnnotation(clazz, Table.class)) {
+			try {
+				return Clazzs.annotationVal(clazz, Table.class);
+			} catch (Exception e) {
+				throw new RdaException(e);
+			}
+		}
 		
 		return clazz.getSimpleName().toLowerCase();
 	}
