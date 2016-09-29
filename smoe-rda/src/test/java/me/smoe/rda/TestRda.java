@@ -29,26 +29,31 @@ public class TestRda {
 	
 	@Test
 	public void save() {
-		CAM cam = new CAM();
-		cam.setId(4L);
+		Rdo cam = new Rdo();
+		cam.setId(3L);
 		cam.setName("hah");
 		
-		Rda.at(CAM.class).save(cam);
+		Rda.at(Rdo.class).save(cam);
 	}
 
 	@Test
 	public void findOne() {
 		Long id = 630005L;
 		
-		CAM cam = Rda.at(CAM.class).findOne(id);
+		Rdo cam = Rda.at(Rdo.class).findOne(id);
 		
 		Assert.isTrue(id.equals(cam.getId()));
 	}
 	
 	@Test
 	public void findAll() {
-		for (CAM cam : Rda.at(CAM.class).findAll()) {
+		for (Rdo cam : Rda.at(Rdo.class).findAll()) {
 			System.out.println(cam.getId() + " + " + cam.getName());
 		}
+	}
+	
+	@Test
+	public void deleteAll() {
+		Rda.at(Rdo.class).deleteAll();
 	}
 }

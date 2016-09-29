@@ -89,8 +89,9 @@ public class StandardSQLBuilder implements SQLBuilder {
 
 	@Override
 	public <T> SQLData deleteAll(Class<T> clazz) throws RdaException {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.notNull(clazz);
+		
+		return SQLData.be(String.format(SQLConstant.SM_DELETEALL, SQLBuilder.tableName(clazz)));
 	}
 
 	@Override

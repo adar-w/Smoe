@@ -73,8 +73,7 @@ public class RdaHandler {
 	}
 
 	public <T> void deleteAll(Class<T> clazz) {
-		// TODO Auto-generated method stub
-		
+		JDBC.execute(sqlBuilder.deleteAll(clazz));
 	}
 
 	public <T> long count(Class<T> clazz, T entity) {

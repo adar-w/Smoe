@@ -43,6 +43,8 @@ public interface SQLConstant {
 	
 	String SM_FINDALL = "SELECT * FROM %s";
 	
+	String SM_DELETEALL = "DELETE FROM %s";
+	
 	String CB = SQLConstant.COMMA + SQLConstant.BLANK;
 	
 	String PCB = SQLConstant.PLACEHOLDER + SQLConstant.COMMA + SQLConstant.BLANK;

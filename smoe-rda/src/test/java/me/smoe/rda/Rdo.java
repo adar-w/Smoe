@@ -17,7 +17,7 @@
  */
 package me.smoe.rda;
 
-public class CAM {
+public class Rdo {
 	
 	private Long id;
 
