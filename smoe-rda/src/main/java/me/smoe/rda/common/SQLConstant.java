@@ -45,6 +45,18 @@ public interface SQLConstant {
 	
 	String SM_DELETEALL = "DELETE FROM %s";
 	
+	String LIMIT = "LIMIT";
+	
+	String ORDER_BY = "ORDER BY";
+	
+	String ORDER_BY_ASC = "ASC";
+
+	String ORDER_BY_DESC = "DESC";
+	
+	String ASC = "ASC";
+	
+	String DESC = "DESC";
+	
 	String CB = SQLConstant.COMMA + SQLConstant.BLANK;
 	
 	String PCB = SQLConstant.PLACEHOLDER + SQLConstant.COMMA + SQLConstant.BLANK;

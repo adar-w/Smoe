@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import me.smoe.rda.JDBC;
+import me.smoe.rda.common.PageAndOrder;
 import me.smoe.rda.handler.sqlbuilder.SQLBuilder;
 import me.smoe.rda.handler.sqlbuilder.impl.StandardSQLBuilder;
 
@@ -43,14 +44,13 @@ public class RdaHandler {
 		return JDBC.query(sqlBuilder.findOne(clazz, id), clazz);
 	}
 
-	public <T> List<T> find(Class<T> clazz) {
-		// TODO Auto-generated method stub
-		return null;
+	public <T> List<T> find(Class<T> clazz, PageAndOrder pageAndOrder) {
+		return JDBC.querys(sqlBuilder.find(clazz, pageAndOrder), clazz);
 	}
 
-	public <T> List<T> find(Class<T> clazz, T entity) {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings("unchecked")
+	public <T> List<T> find(T entity, PageAndOrder pageAndOrder) {
+		return JDBC.querys(sqlBuilder.find(entity, pageAndOrder), (Class<T>) entity.getClass());
 	}
 
 	public <T> List<T> find(Class<T> clazz, Iterable<? extends Serializable> ids) {

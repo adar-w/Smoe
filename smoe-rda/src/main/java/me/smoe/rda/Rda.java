@@ -16,11 +16,11 @@
 package me.smoe.rda;
 
 import java.io.Serializable;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.sql.DataSource;
 
+import me.smoe.rda.common.PageAndOrder;
 import me.smoe.rda.exception.RdaException;
 import me.smoe.rda.handler.impl.RdaHandler;
 
@@ -53,9 +53,7 @@ public final class Rda {
 		
 		private Class<T> clazz;
 		
-		private int[] limit;
-		
-		private LinkedHashMap<String, Boolean> orderBy;
+		private PageAndOrder pageAndOrder = new PageAndOrder();
 		
 		Be(Class<T> clazz) {
 			if (init) {
@@ -66,13 +64,13 @@ public final class Rda {
 		}
 		
 		public Be<T> limit(int offset) {
-			this.limit = new int[]{offset};
+			pageAndOrder.setLimit(new int[]{offset});
 			
 			return this;
 		}
 
 		public Be<T> limit(int offset, int rows) {
-			this.limit = new int[]{offset, rows};
+			pageAndOrder.setLimit(new int[]{offset, rows});
 			
 			return this;
 		}
@@ -82,7 +80,7 @@ public final class Rda {
 		}
 
 		public Be<T> orderBy(String field, boolean isAsc) {
-			orderBy.put(field, isAsc);
+			pageAndOrder.getOrderBy().put(field, isAsc);
 			
 			return this;
 		}
@@ -100,11 +98,11 @@ public final class Rda {
 		}
 
 		public List<T> find() throws RdaException {
-			return handler.find(clazz);
+			return handler.find(clazz, pageAndOrder);
 		}
 
 		public List<T> find(T entity) throws RdaException {
-			return handler.find(clazz, entity);
+			return handler.find(entity, pageAndOrder);
 		}
 
 		public List<T> find(Iterable<? extends Serializable> ids) throws RdaException {
@@ -146,14 +144,6 @@ public final class Rda {
 
 		public Class<T> getClazz() {
 			return clazz;
-		}
-
-		public int[] getLimit() {
-			return limit;
-		}
-
-		public LinkedHashMap<String, Boolean> getOrderBy() {
-			return orderBy;
 		}
 	}
 }

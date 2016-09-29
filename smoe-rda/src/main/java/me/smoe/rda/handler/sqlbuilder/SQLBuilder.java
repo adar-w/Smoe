@@ -16,12 +16,15 @@
 package me.smoe.rda.handler.sqlbuilder;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Stream;
 
 import me.smoe.mda.Assert;
 import me.smoe.mda.Clazzs;
+import me.smoe.mda.Strings;
 import me.smoe.rda.annotation.Table;
+import me.smoe.rda.common.PageAndOrder;
 import me.smoe.rda.common.SQLConstant;
 import me.smoe.rda.exception.RdaException;
 
@@ -51,6 +54,37 @@ public interface SQLBuilder {
 		return String.join(SQLConstant.CB, columns);
 	}
 	
+	static String pageAndOrder(PageAndOrder pageAndOrder) {
+		Assert.notNull(pageAndOrder);
+		
+		String limit = Strings.EMPTY;
+		if (pageAndOrder.getLimit() != null) {
+			StringBuilder buf = new StringBuilder(SQLConstant.LIMIT);
+			Arrays.stream(pageAndOrder.getLimit()).forEach(e -> {
+				buf.append(SQLConstant.BLANK);
+				buf.append(e);
+				buf.append(SQLConstant.COMMA);
+			});
+			
+			limit = buf.toString().substring(0, buf.length() - 1);
+		}
+		
+		String orderBy = Strings.EMPTY;
+		if (!pageAndOrder.getOrderBy().isEmpty()) {
+			StringBuilder buf = new StringBuilder(SQLConstant.ORDER_BY);
+			pageAndOrder.getOrderBy().forEach((k, v) -> {
+				buf.append(SQLConstant.BLANK);
+				buf.append(k);
+				buf.append(SQLConstant.BLANK);
+				buf.append(v ? SQLConstant.ORDER_BY_ASC : SQLConstant.ORDER_BY_DESC);
+				buf.append(SQLConstant.COMMA);
+			});
+			orderBy = buf.toString().substring(0, buf.length() - 1);
+		}
+		
+		return String.join(SQLConstant.BLANK, limit, orderBy).trim();
+	}
+	
 	static String placeholders(int count) {
 		StringBuilder buf = new StringBuilder();
 		
@@ -65,9 +99,9 @@ public interface SQLBuilder {
 	
 	<T> SQLData findOne(Class<T> clazz, Serializable id) throws RdaException;
 		
-	<T> SQLData find(Class<T> clazz) throws RdaException;
+	<T> SQLData find(Class<T> clazz, PageAndOrder pageAndOrder) throws RdaException;
 
-	<T> SQLData find(Class<T> clazz, T entity) throws RdaException;
+	<T> SQLData find(T entity, PageAndOrder pageAndOrder) throws RdaException;
 	
 	<T> SQLData find(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException;
 

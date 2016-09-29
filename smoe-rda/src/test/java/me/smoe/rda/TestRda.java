@@ -53,6 +53,11 @@ public class TestRda {
 	}
 	
 	@Test
+	public void find() {
+		System.out.println(Rda.at(Rdo.class).limit(2).find());
+	}
+
+	@Test
 	public void deleteAll() {
 		Rda.at(Rdo.class).deleteAll();
 	}
