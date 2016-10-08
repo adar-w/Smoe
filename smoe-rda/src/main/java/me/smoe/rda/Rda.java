@@ -106,11 +106,11 @@ public final class Rda {
 		}
 
 		public List<T> find(Iterable<? extends Serializable> ids) throws RdaException {
-			return handler.find(clazz, ids);
+			return handler.find(clazz, ids, pageAndOrder);
 		}
 
 		public List<T> findAll() throws RdaException {
-			return handler.findAll(clazz);
+			return handler.findAll(clazz, pageAndOrder);
 		}
 
 		public void delete(Serializable id) throws RdaException {

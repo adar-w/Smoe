@@ -53,13 +53,13 @@ public class RdaHandler {
 		return JDBC.querys(sqlBuilder.find(entity, pageAndOrder), (Class<T>) entity.getClass());
 	}
 
-	public <T> List<T> find(Class<T> clazz, Iterable<? extends Serializable> ids) {
+	public <T> List<T> find(Class<T> clazz, Iterable<? extends Serializable> ids, PageAndOrder pageAndOrder) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public <T> List<T> findAll(Class<T> clazz) {
-		return JDBC.querys(sqlBuilder.findAll(clazz), clazz);
+	public <T> List<T> findAll(Class<T> clazz, PageAndOrder pageAndOrder) {
+		return JDBC.querys(sqlBuilder.findAll(clazz, pageAndOrder), clazz);
 	}
 
 	public <T> void delete(Class<T> clazz, Serializable id) {

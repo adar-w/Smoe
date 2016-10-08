@@ -66,16 +66,16 @@ public class StandardSQLBuilder implements SQLBuilder {
 	}
 
 	@Override
-	public <T> SQLData find(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException {
+	public <T> SQLData find(Class<T> clazz, Iterable<? extends Serializable> ids, PageAndOrder pageAndOrder) throws RdaException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <T> SQLData findAll(Class<T> clazz) throws RdaException {
+	public <T> SQLData findAll(Class<T> clazz, PageAndOrder pageAndOrder) throws RdaException {
 		Assert.notNull(clazz);
 		
-		return SQLData.be(String.format(SQLConstant.SM_FINDALL, SQLBuilder.tableName(clazz)));
+		return SQLData.be(String.format(SQLConstant.SM_FINDALL, SQLBuilder.tableName(clazz)) + SQLConstant.BLANK + SQLBuilder.pageAndOrder(pageAndOrder));
 	}
 
 	@Override

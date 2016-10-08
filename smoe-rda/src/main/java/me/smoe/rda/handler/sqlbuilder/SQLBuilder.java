@@ -103,9 +103,9 @@ public interface SQLBuilder {
 
 	<T> SQLData find(T entity, PageAndOrder pageAndOrder) throws RdaException;
 	
-	<T> SQLData find(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException;
+	<T> SQLData find(Class<T> clazz, Iterable<? extends Serializable> ids, PageAndOrder pageAndOrder) throws RdaException;
 
-	<T> SQLData findAll(Class<T> clazz) throws RdaException;
+	<T> SQLData findAll(Class<T> clazz, PageAndOrder pageAndOrder) throws RdaException;
 
 	<T> SQLData delete(Class<T> clazz, Serializable id) throws RdaException;
 
