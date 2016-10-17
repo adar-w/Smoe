@@ -49,6 +49,8 @@ public interface SQLConstant {
 	
 	String SM_INSERT = "INSERT INTO %s (%s) VALUES (%s)";
 	
+	String SM_UPDATE = "UPDATE %s SET %s WHERE id = %s";
+	
 	String SM_FINDONE = "SELECT %s FROM %s WHERE id = %s";
 	
 	String SM_FIND = "SELECT * FROM %s %s";
@@ -76,6 +78,8 @@ public interface SQLConstant {
 	String DESC = "DESC";
 	
 	String AND = "AND";
+	
+	String ID = "id";
 	
 	String CB = SQLConstant.COMMA + SQLConstant.BLANK;
 	

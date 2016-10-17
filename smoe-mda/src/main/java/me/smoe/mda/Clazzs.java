@@ -18,10 +18,16 @@
 package me.smoe.mda;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 public class Clazzs {
@@ -58,21 +64,30 @@ public class Clazzs {
 		Assert.notNull(methodName);
 		Assert.notNull(fieldType);
 		
-		return fieldType.cast(entity.getClass().getDeclaredMethod(methodName).invoke(entity));
+		Method method = entity.getClass().getDeclaredMethod(methodName);
+		method.setAccessible(true);
+		
+		return fieldType.cast(method.invoke(entity));
 	}
 	
 	public static <E, T> T fieldVal(E entity, String fieldName, Class<T> fieldType) throws Exception {
 		Assert.notNull(entity);
 		Assert.notNull(fieldName);
 		
-		return fieldType.cast(entity.getClass().getField(fieldName).get(entity));
+		Field field = entity.getClass().getDeclaredField(fieldName);
+		field.setAccessible(true);
+		
+		return fieldType.cast(field.get(entity));
 	}
 
 	public static <E, T> T fieldVal(Class<E> clazz, String fieldName, Class<T> fieldType) throws Exception {
 		Assert.notNull(clazz);
 		Assert.notNull(fieldName);
 		
-		return fieldType.cast(clazz.getField(fieldName).get(null));
+		Field field = clazz.getDeclaredField(fieldName);
+		field.setAccessible(true);
+		
+		return fieldType.cast(field.get(null));
 	}
 	
 	public static <T> List<String> fields(Class<T> clazz) {
@@ -90,12 +105,19 @@ public class Clazzs {
 		return fields(entity, true);
 	}
 	
-	public static <T> Map<String, Object> fields(T entity, boolean allowNull) {
+	public static <T> Map<String, Object> fields(T entity, boolean allowNull, String... exclude) {
 		Assert.notNull(entity);
+		Assert.notNull(entity);
+		
+		Set<String> excludes = exclude == null ? Collections.emptySet() : new HashSet<>(Arrays.asList(exclude));
 		
 		Map<String, Object> fields = new LinkedHashMap<>();
 		Stream.of(entity.getClass().getDeclaredFields()).forEach((e) -> {
 			try {
+				if (excludes.contains(e.getName())) {
+					return;
+				}
+				
 				e.setAccessible(true);
 				
 				Object value = e.get(entity);

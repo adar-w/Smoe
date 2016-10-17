@@ -88,8 +88,8 @@ public final class Rda {
 			handler.save(entity);
 		}
 		
-		public void modify(T entity) {
-			handler.modify(entity);
+		public int modify(T entity) {
+			return handler.modify(entity);
 		}
 
 		public T findOne(Serializable id) {

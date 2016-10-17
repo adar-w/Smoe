@@ -34,10 +34,8 @@ public class RdaHandler {
 		JDBC.execute(sqlBuilder.save(entity));
 	}
 
-
-	public <T> void modify(T entity) {
-		// TODO Auto-generated method stub
-		
+	public <T> int modify(T entity) {
+		return JDBC.execute(sqlBuilder.modify(entity));
 	}
 	
 	public <T> T findOne(Class<T> clazz, Serializable id) {

@@ -51,6 +51,16 @@ public interface SQLBuilder {
 		return clazz.getSimpleName().toLowerCase();
 	}
 	
+	static <T> Serializable id(T entity) {
+		Assert.notNull(entity);
+		
+		try {
+			return Clazzs.fieldVal(entity, SQLConstant.ID, Serializable.class);
+		} catch (Exception e) {
+			throw new RdaException(e);
+		}
+	}
+	
 	static String columns(Collection<String> columns) {
 		return String.join(SQLConstant.CB, columns);
 	}
@@ -82,6 +92,25 @@ public interface SQLBuilder {
 		});
 		
 		return buf.toString().substring(0, buf.length() - 4);
+	}
+	
+	static String sets(Map<String, Object> fields) {
+		Assert.notNull(fields);
+		
+		StringBuilder buf = new StringBuilder();
+		fields.forEach((k, v) -> {
+			if (v == null) {
+				return;
+			} else {
+				buf.append(k);
+				buf.append(SQLConstant.BLANK + SQLConstant.EQ + SQLConstant.BLANK);
+				buf.append(SQLConstant.PLACEHOLDER);
+			}
+			
+			buf.append(SQLConstant.CB);
+		});
+		
+		return buf.toString().substring(0, buf.length() - 2);
 	}
 	
 	static String pageAndOrder(PageAndOrder pageAndOrder) {

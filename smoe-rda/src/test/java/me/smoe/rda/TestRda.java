@@ -37,6 +37,14 @@ public class TestRda {
 	}
 
 	@Test
+	public void modify() {
+		Rdo rdo = Rda.at(Rdo.class).findOne(2L);
+		rdo.setName("modify");
+		
+		Rda.at(Rdo.class).modify(rdo);
+	}
+
+	@Test
 	public void findOne() {
 		Long id = 630005L;
 		

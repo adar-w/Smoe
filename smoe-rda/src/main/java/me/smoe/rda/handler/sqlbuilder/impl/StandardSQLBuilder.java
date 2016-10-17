@@ -16,6 +16,8 @@
 package me.smoe.rda.handler.sqlbuilder.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import me.smoe.mda.Assert;
@@ -39,8 +41,18 @@ public class StandardSQLBuilder implements SQLBuilder {
 
 	@Override
 	public <T> SQLData modify(T entity) {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.notNull(entity);
+		
+		Serializable id = SQLBuilder.id(entity);
+		Assert.notNull(id, "[Rda] Modify: Id can't be null.");
+		
+		Map<String, Object> fields = Clazzs.fields(entity, false, SQLConstant.ID);
+
+		List<Object> params = new ArrayList<>(fields.size() + 1);
+		params.addAll(fields.values());
+		params.add(id);
+
+		return SQLData.be(String.format(SQLConstant.SM_UPDATE, SQLBuilder.tableName(entity), SQLBuilder.sets(fields), SQLBuilder.placeholders(1)), params.toArray());
 	}
 
 	@Override
