@@ -29,11 +29,11 @@ public class TestRda {
 	
 	@Test
 	public void save() {
-		Rdo cam = new Rdo();
-		cam.setId(3L);
-		cam.setName("hah");
+		Rdo rdo = new Rdo();
+		rdo.setId(3L);
+		rdo.setName("hah");
 		
-		Rda.at(Rdo.class).save(cam);
+		Rda.at(Rdo.class).save(rdo);
 	}
 
 	@Test
@@ -48,15 +48,15 @@ public class TestRda {
 	public void findOne() {
 		Long id = 630005L;
 		
-		Rdo cam = Rda.at(Rdo.class).findOne(id);
+		Rdo rdo = Rda.at(Rdo.class).findOne(id);
 		
-		Assert.isTrue(id.equals(cam.getId()));
+		Assert.isTrue(id.equals(rdo.getId()));
 	}
 	
 	@Test
 	public void findAll() {
-		for (Rdo cam : Rda.at(Rdo.class).findAll()) {
-			System.out.println(cam.getId() + " + " + cam.getName());
+		for (Rdo rdo : Rda.at(Rdo.class).findAll()) {
+			System.out.println(rdo.getId() + " + " + rdo.getName());
 		}
 	}
 	

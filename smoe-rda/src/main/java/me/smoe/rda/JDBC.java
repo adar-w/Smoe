@@ -102,6 +102,9 @@ public final class JDBC {
 	}
 	
 	private static PreparedStatement statement(Connection connection, String sql, Collection<Object> params) throws Exception {
+		// TODO Log
+		System.out.println(String.format("[Rda] SQL: %s Params: %s", sql, params));
+		
 		PreparedStatement prepareStatement = connection.prepareStatement(sql);
 
 		int index = 1;
