@@ -18,6 +18,7 @@ package me.smoe.rda.handler.sqlbuilder;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import me.smoe.mda.Assert;
@@ -54,6 +55,35 @@ public interface SQLBuilder {
 		return String.join(SQLConstant.CB, columns);
 	}
 	
+	static String wheres(Map<String, Object> fields) {
+		return wheres(fields, true);
+	}
+	
+	static String wheres(Map<String, Object> fields, boolean allowNull) {
+		Assert.notNull(fields);
+		
+		StringBuilder buf = new StringBuilder(SQLConstant.WHERE);
+		fields.forEach((k, v) -> {
+			if (v == null && !allowNull) {
+				return;
+			} else {
+				buf.append(SQLConstant.BLANK);
+				buf.append(k);
+				
+				if (v == null) {
+					buf.append(SQLConstant.BLANK + SQLConstant.IS_NULL);
+				} else {
+					buf.append(SQLConstant.BLANK + SQLConstant.EQ + SQLConstant.BLANK);
+					buf.append(SQLConstant.PLACEHOLDER);
+				}
+			}
+			
+			buf.append(SQLConstant.BLANK + SQLConstant.AND);
+		});
+		
+		return buf.toString().substring(0, buf.length() - 4);
+	}
+	
 	static String pageAndOrder(PageAndOrder pageAndOrder) {
 		Assert.notNull(pageAndOrder);
 		
@@ -76,7 +106,7 @@ public interface SQLBuilder {
 				buf.append(SQLConstant.BLANK);
 				buf.append(k);
 				buf.append(SQLConstant.BLANK);
-				buf.append(v ? SQLConstant.ORDER_BY_ASC : SQLConstant.ORDER_BY_DESC);
+				buf.append(v ? SQLConstant.ASC : SQLConstant.DESC);
 				buf.append(SQLConstant.COMMA);
 			});
 			orderBy = buf.toString().substring(0, buf.length() - 1);
@@ -103,18 +133,12 @@ public interface SQLBuilder {
 
 	<T> SQLData find(T entity, PageAndOrder pageAndOrder) throws RdaException;
 	
-	<T> SQLData find(Class<T> clazz, Iterable<? extends Serializable> ids, PageAndOrder pageAndOrder) throws RdaException;
-
 	<T> SQLData findAll(Class<T> clazz, PageAndOrder pageAndOrder) throws RdaException;
 
 	<T> SQLData delete(Class<T> clazz, Serializable id) throws RdaException;
 
-	<T> SQLData delete(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException;
-
 	<T> SQLData deleteAll(Class<T> clazz) throws RdaException;
 
 	<T> SQLData count(Class<T> clazz, T entity) throws RdaException;
-
-	<T> SQLData exists(Class<T> clazz, Serializable id) throws RdaException;
 
 }

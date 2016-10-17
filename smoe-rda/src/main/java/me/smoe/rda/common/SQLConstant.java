@@ -23,6 +23,16 @@ public interface SQLConstant {
 	
 	String COMMA = ",";
 	
+	String EQ = "=";
+	
+	String BT = ">";
+	
+	String LT = "<";
+	
+	String BTEQ = BT + EQ;
+	
+	String LTEQ = LT + EQ;
+	
 	String PLACEHOLDER = "?";
 	
 	String BRACKETS_LEF = "(";
@@ -41,21 +51,31 @@ public interface SQLConstant {
 	
 	String SM_FINDONE = "SELECT %s FROM %s WHERE id = %s";
 	
+	String SM_FIND = "SELECT * FROM %s %s";
+	
 	String SM_FINDALL = "SELECT * FROM %s";
 	
+	String SM_DELETE = "DELETE FROM %s WHERE id = %s";
+	
 	String SM_DELETEALL = "DELETE FROM %s";
+	
+	String SM_COUNT = "SELECT COUNT(*) FROM %s";
+
+	String SM_COUNT_MATCH = "SELECT COUNT(*) FROM %s %s";
+	
+	String WHERE = "WHERE";
 	
 	String LIMIT = "LIMIT";
 	
 	String ORDER_BY = "ORDER BY";
 	
-	String ORDER_BY_ASC = "ASC";
-
-	String ORDER_BY_DESC = "DESC";
+	String IS_NULL = "IS NULL";
 	
 	String ASC = "ASC";
 	
 	String DESC = "DESC";
+	
+	String AND = "AND";
 	
 	String CB = SQLConstant.COMMA + SQLConstant.BLANK;
 	

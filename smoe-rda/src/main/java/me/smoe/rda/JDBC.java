@@ -93,6 +93,14 @@ public final class JDBC {
 		}
 	}
 	
+	public static <T> T get(SQLData data, Class<T> clazz) {
+		try (Connection connection = connection()) {
+			return Mapping.get(statement(connection, data.getSql(), data.getParams()).executeQuery(), clazz);
+		} catch (Exception e) {
+			throw new RdaException(e);
+		}
+	}
+	
 	private static PreparedStatement statement(Connection connection, String sql, Collection<Object> params) throws Exception {
 		PreparedStatement prepareStatement = connection.prepareStatement(sql);
 

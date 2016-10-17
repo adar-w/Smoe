@@ -22,6 +22,18 @@ public class Rdo {
 	private Long id;
 
 	private String name;
+	
+	public Rdo() {
+		
+	}
+	
+	public Rdo(Long id) {
+		this.id = id;
+	}
+
+	public Rdo(String name) {
+		this.name = name;
+	}
 
 	public Long getId() {
 		return id;

@@ -70,4 +70,15 @@ public class Mapping {
 		
 		return instances;
 	}
+
+	public static <T> T get(ResultSet resultSet, Class<T> clazz) throws Exception {
+		Assert.notNull(resultSet);
+		Assert.notNull(clazz);
+		
+		if (resultSet.next()) {
+			return clazz.cast(resultSet.getObject(1));
+		} else {
+			return null;
+		}
+	}
 }

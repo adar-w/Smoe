@@ -87,12 +87,21 @@ public class Clazzs {
 	}
 	
 	public static <T> Map<String, Object> fields(T entity) {
+		return fields(entity, true);
+	}
+	
+	public static <T> Map<String, Object> fields(T entity, boolean allowNull) {
 		Assert.notNull(entity);
 		
 		Map<String, Object> fields = new LinkedHashMap<>();
 		Stream.of(entity.getClass().getDeclaredFields()).forEach((e) -> {
 			try {
 				e.setAccessible(true);
+				
+				Object value = e.get(entity);
+				if (value == null && !allowNull) {
+					return;
+				}
 				
 				fields.put(e.getName(), e.get(entity));
 			} catch (Exception exception) {

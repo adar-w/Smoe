@@ -56,9 +56,29 @@ public class TestRda {
 	public void find() {
 		System.out.println(Rda.at(Rdo.class).limit(2).find());
 	}
+	
+	@Test
+	public void findMatch() {
+		System.out.println(Rda.at(Rdo.class).limit(2).find(new Rdo("hah")));
+	}
 
+	@Test
+	public void delete() {
+		Rda.at(Rdo.class).delete(1L);
+	}
+	
 	@Test
 	public void deleteAll() {
 		Rda.at(Rdo.class).deleteAll();
+	}
+	
+	@Test
+	public void count() {
+		System.out.println(Rda.at(Rdo.class).count());
+	}
+	
+	@Test
+	public void countMatch() {
+		System.out.println(Rda.at(Rdo.class).count(new Rdo("hehe")));
 	}
 }

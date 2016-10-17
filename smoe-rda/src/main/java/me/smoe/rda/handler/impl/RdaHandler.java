@@ -53,32 +53,20 @@ public class RdaHandler {
 		return JDBC.querys(sqlBuilder.find(entity, pageAndOrder), (Class<T>) entity.getClass());
 	}
 
-	public <T> List<T> find(Class<T> clazz, Iterable<? extends Serializable> ids, PageAndOrder pageAndOrder) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public <T> List<T> findAll(Class<T> clazz, PageAndOrder pageAndOrder) {
 		return JDBC.querys(sqlBuilder.findAll(clazz, pageAndOrder), clazz);
 	}
 
-	public <T> void delete(Class<T> clazz, Serializable id) {
-		// TODO Auto-generated method stub
-		
+	public <T> int delete(Class<T> clazz, Serializable id) {
+		return JDBC.execute(sqlBuilder.delete(clazz, id));
 	}
 
-	public <T> void delete(Class<T> clazz, Iterable<? extends Serializable> ids) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public <T> void deleteAll(Class<T> clazz) {
-		JDBC.execute(sqlBuilder.deleteAll(clazz));
+	public <T> int deleteAll(Class<T> clazz) {
+		return JDBC.execute(sqlBuilder.deleteAll(clazz));
 	}
 
 	public <T> long count(Class<T> clazz, T entity) {
-		// TODO Auto-generated method stub
-		return 0;
+		return JDBC.get(sqlBuilder.count(clazz, entity), Long.class);
 	}
 
 	public <T> boolean exists(Class<T> clazz, Serializable id) {

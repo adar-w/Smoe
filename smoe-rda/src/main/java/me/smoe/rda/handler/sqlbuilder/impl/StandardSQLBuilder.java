@@ -61,14 +61,12 @@ public class StandardSQLBuilder implements SQLBuilder {
 
 	@Override
 	public <T> SQLData find(T entity, PageAndOrder pageAndOrder) throws RdaException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> SQLData find(Class<T> clazz, Iterable<? extends Serializable> ids, PageAndOrder pageAndOrder) throws RdaException {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.notNull(entity);
+		Assert.notNull(pageAndOrder);
+		
+		Map<String, Object> fields = Clazzs.fields(entity, false);
+		
+		return SQLData.be(String.format(SQLConstant.SM_FIND, SQLBuilder.tableName(entity), SQLBuilder.wheres(fields, false)) + SQLConstant.BLANK + SQLBuilder.pageAndOrder(pageAndOrder), fields.values().toArray());
 	}
 
 	@Override
@@ -80,14 +78,10 @@ public class StandardSQLBuilder implements SQLBuilder {
 
 	@Override
 	public <T> SQLData delete(Class<T> clazz, Serializable id) throws RdaException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> SQLData delete(Class<T> clazz, Iterable<? extends Serializable> ids) throws RdaException {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.notNull(clazz);
+		Assert.notNull(id);
+		
+		return SQLData.be(String.format(SQLConstant.SM_DELETE, SQLBuilder.tableName(clazz), SQLBuilder.placeholders(1)), id);
 	}
 
 	@Override
@@ -99,13 +93,13 @@ public class StandardSQLBuilder implements SQLBuilder {
 
 	@Override
 	public <T> SQLData count(Class<T> clazz, T entity) throws RdaException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> SQLData exists(Class<T> clazz, Serializable id) throws RdaException {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.notNull(clazz);
+		
+		if (entity == null) {
+			return SQLData.be(String.format(SQLConstant.SM_COUNT, SQLBuilder.tableName(clazz)));
+		} else {
+			Map<String, Object> fields = Clazzs.fields(entity, false);
+			return SQLData.be(String.format(SQLConstant.SM_COUNT_MATCH, SQLBuilder.tableName(clazz), SQLBuilder.wheres(fields, false)), fields.values().toArray());
+		}
 	}
 }

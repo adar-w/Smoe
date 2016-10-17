@@ -21,7 +21,6 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import me.smoe.rda.common.PageAndOrder;
-import me.smoe.rda.exception.RdaException;
 import me.smoe.rda.handler.impl.RdaHandler;
 
 public final class Rda {
@@ -93,51 +92,43 @@ public final class Rda {
 			handler.modify(entity);
 		}
 
-		public T findOne(Serializable id) throws RdaException {
+		public T findOne(Serializable id) {
 			return handler.findOne(clazz, id);
 		}
 
-		public List<T> find() throws RdaException {
+		public List<T> find() {
 			return handler.find(clazz, pageAndOrder);
 		}
 
-		public List<T> find(T entity) throws RdaException {
+		public List<T> find(T entity) {
 			return handler.find(entity, pageAndOrder);
 		}
 
-		public List<T> find(Iterable<? extends Serializable> ids) throws RdaException {
-			return handler.find(clazz, ids, pageAndOrder);
-		}
-
-		public List<T> findAll() throws RdaException {
+		public List<T> findAll() {
 			return handler.findAll(clazz, pageAndOrder);
 		}
 
-		public void delete(Serializable id) throws RdaException {
-			handler.delete(clazz, id);
+		public int delete(Serializable id) {
+			return handler.delete(clazz, id);
 		}
 
-		public void delete(Iterable<? extends Serializable> ids) throws RdaException {
-			handler.delete(clazz, ids);
+		public int deleteAll() {
+			return handler.deleteAll(clazz);
 		}
 
-		public void deleteAll() throws RdaException {
-			handler.deleteAll(clazz);
-		}
-
-		public long count() throws RdaException {
+		public long count() {
 			return handler.count(clazz, null);
 		}
 
-		public long count(T entity) throws RdaException {
+		public long count(T entity) {
 			return handler.count(clazz, entity);
 		}
 
-		public boolean exists(Serializable id) throws RdaException {
+		public boolean exists(Serializable id) {
 			return handler.exists(clazz, id);
 		}
 
-		public Long build(String sql) throws RdaException {
+		public Long build(String sql) {
 			// TODO
 			return null;
 		}
