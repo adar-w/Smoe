@@ -64,14 +64,6 @@ public class StandardSQLBuilder implements SQLBuilder {
 	}
 
 	@Override
-	public <T> SQLData find(Class<T> clazz, PageAndOrder pageAndOrder) throws RdaException {
-		Assert.notNull(clazz);
-		Assert.notNull(pageAndOrder);
-		
-		return SQLData.be(String.format(SQLConstant.SM_FINDALL, SQLBuilder.tableName(clazz)) + SQLConstant.BLANK + SQLBuilder.pageAndOrder(pageAndOrder));
-	}
-
-	@Override
 	public <T> SQLData find(T entity, PageAndOrder pageAndOrder) throws RdaException {
 		Assert.notNull(entity);
 		Assert.notNull(pageAndOrder);

@@ -61,11 +61,6 @@ public class TestRda {
 	}
 	
 	@Test
-	public void find() {
-		System.out.println(Rda.at(Rdo.class).limit(2).find());
-	}
-	
-	@Test
 	public void findMatch() {
 		System.out.println(Rda.at(Rdo.class).limit(2).find(new Rdo("hah")));
 	}
@@ -88,5 +83,10 @@ public class TestRda {
 	@Test
 	public void countMatch() {
 		System.out.println(Rda.at(Rdo.class).count(new Rdo("hehe")));
+	}
+	
+	@Test
+	public void exists() {
+		System.out.println(Rda.at(Rdo.class).exists(1L));
 	}
 }

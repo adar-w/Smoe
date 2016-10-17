@@ -42,10 +42,6 @@ public final class RdaHandler {
 		return JDBC.query(sqlBuilder.findOne(clazz, id), clazz);
 	}
 
-	public <T> List<T> find(Class<T> clazz, PageAndOrder pageAndOrder) {
-		return JDBC.querys(sqlBuilder.find(clazz, pageAndOrder), clazz);
-	}
-
 	@SuppressWarnings("unchecked")
 	public <T> List<T> find(T entity, PageAndOrder pageAndOrder) {
 		return JDBC.querys(sqlBuilder.find(entity, pageAndOrder), (Class<T>) entity.getClass());

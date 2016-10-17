@@ -158,8 +158,6 @@ public interface SQLBuilder {
 	
 	<T> SQLData findOne(Class<T> clazz, Serializable id) throws RdaException;
 		
-	<T> SQLData find(Class<T> clazz, PageAndOrder pageAndOrder) throws RdaException;
-
 	<T> SQLData find(T entity, PageAndOrder pageAndOrder) throws RdaException;
 	
 	<T> SQLData findAll(Class<T> clazz, PageAndOrder pageAndOrder) throws RdaException;

@@ -96,10 +96,6 @@ public final class Rda {
 			return handler.findOne(clazz, id);
 		}
 
-		public List<T> find() {
-			return handler.find(clazz, pageAndOrder);
-		}
-
 		public List<T> find(T entity) {
 			return handler.find(entity, pageAndOrder);
 		}

@@ -54,13 +54,6 @@
 	}
 
 
-## Find
-	@Test
-	public void find() {
-		System.out.println(Rda.at(Rdo.class).limit(2).find());
-	}
-
-
 ## FindMatch	
 	@Test
 	public void findMatch() {
@@ -92,6 +85,13 @@
 	@Test
 	public void countMatch() {
 		System.out.println(Rda.at(Rdo.class).count(new Rdo("hehe")));
+	}
+
+
+## Exists	
+	@Test
+	public void exists() {
+		System.out.println(Rda.at(Rdo.class).exists(1L));
 	}
 
 
