@@ -23,7 +23,7 @@ import me.smoe.rda.common.PageAndOrder;
 import me.smoe.rda.handler.sqlbuilder.SQLBuilder;
 import me.smoe.rda.handler.sqlbuilder.impl.StandardSQLBuilder;
 
-public class RdaHandler {
+public final class RdaHandler {
 	
 	private static final SQLBuilder sqlBuilder;
 	static {
