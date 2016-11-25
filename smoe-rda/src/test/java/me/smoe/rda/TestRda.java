@@ -57,7 +57,7 @@ public class TestRda {
 	@Test
 	public void save() {
 		Rdo rdo = new Rdo();
-		rdo.setId(3L);
+		rdo.setId(17L);
 		rdo.setName("hah");
 		
 		Rda.at(Rdo.class).save(rdo);

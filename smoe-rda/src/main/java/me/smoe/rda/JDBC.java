@@ -23,11 +23,16 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import me.smoe.rda.exception.RdaException;
 import me.smoe.rda.handler.sqlbuilder.SQLData;
 import me.smoe.rda.mapping.Mapping;
 
 public final class JDBC {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(JDBC.class); 
 	
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
 	
@@ -102,8 +107,7 @@ public final class JDBC {
 	}
 	
 	private static PreparedStatement statement(Connection connection, String sql, Collection<Object> params) throws Exception {
-		// TODO Log
-		System.out.println(String.format("[Rda] SQL: %s Params: %s", sql, params));
+		LOGGER.info(String.format("[Rda] SQL: %s Params: %s", sql, params));
 		
 		PreparedStatement prepareStatement = connection.prepareStatement(sql);
 
