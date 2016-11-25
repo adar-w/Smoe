@@ -67,8 +67,7 @@ public final class RdaHandler {
 		return findOne(clazz, id) != null;
 	}
 
-	public <T> Long build(String sql) {
-		// TODO Auto-generated method stub
-		return null;
+	public <T> RdaBuilder build(String sql, Object... params) {
+		return new RdaBuilder(sql, params);
 	}
 }

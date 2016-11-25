@@ -21,6 +21,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import me.smoe.rda.common.PageAndOrder;
+import me.smoe.rda.handler.impl.RdaBuilder;
 import me.smoe.rda.handler.impl.RdaHandler;
 
 public final class Rda {
@@ -46,6 +47,10 @@ public final class Rda {
 
 	public static <T> Be<T> at(Class<T> clazz) {
 		return new Be<T>(clazz);
+	}
+	
+	public static RdaBuilder build(String sql, Object... params) {
+		return handler.build(sql, params);
 	}
 
 	public static class Be<T> {
@@ -122,11 +127,6 @@ public final class Rda {
 
 		public boolean exists(Serializable id) {
 			return handler.exists(clazz, id);
-		}
-
-		public Long build(String sql) {
-			// TODO
-			return null;
 		}
 
 		public Class<T> getClazz() {

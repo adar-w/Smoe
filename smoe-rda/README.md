@@ -6,10 +6,40 @@
 * [x] mysql-connector.version > 5.1.33 
 
 
+## TestCase
+	me.smoe.rda.TestRda
+	
+
 ## Just config
 	private static final String URL = "jdbc:mysql://localhost:3306/adar";
 	static {
 		Rda.to(URL, "root", "adar");
+	}
+	
+	
+## Init
+	@Test
+	public void init() {
+		IntStream.range(1, 10).forEach(i -> {
+			Rdo rdo = new Rdo();
+			rdo.setId(new Long(i));
+			rdo.setName("rda-" + i);
+			
+			Rda.at(Rdo.class).save(rdo);
+		});
+	}
+
+
+## SQL
+	@Test
+	public void sql() {
+		System.out.println(Rda.build("select count(*) from rdo").getLong());
+		
+		System.out.println(Rda.build("select name from rdo where id = ?", 1).getString());
+
+		System.out.println(Rda.build("select * from rdo where id = ?", 2).mapping(Rdo.class));
+
+		System.out.println(Rda.build("select * from rdo").mappings(Rdo.class));
 	}
 
 
@@ -93,7 +123,3 @@
 	public void exists() {
 		System.out.println(Rda.at(Rdo.class).exists(1L));
 	}
-
-
-## TestCase
-	me.smoe.rda.TestRda

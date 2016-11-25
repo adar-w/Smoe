@@ -15,6 +15,8 @@
  */
 package me.smoe.rda;
 
+import java.util.stream.IntStream;
+
 import org.junit.Test;
 
 import me.smoe.mda.Assert;
@@ -25,6 +27,31 @@ public class TestRda {
 	
 	static {
 		Rda.to(URL, "root", "adar");
+	}
+	
+	/**
+	 * Init
+	 */
+	@Test
+	public void init() {
+		IntStream.range(1, 10).forEach(i -> {
+			Rdo rdo = new Rdo();
+			rdo.setId(new Long(i));
+			rdo.setName("rda-" + i);
+			
+			Rda.at(Rdo.class).save(rdo);
+		});
+	}
+	
+	@Test
+	public void sql() {
+		System.out.println(Rda.build("select count(*) from rdo").getLong());
+		
+		System.out.println(Rda.build("select name from rdo where id = ?", 1).getString());
+
+		System.out.println(Rda.build("select * from rdo where id = ?", 2).mapping(Rdo.class));
+
+		System.out.println(Rda.build("select * from rdo").mappings(Rdo.class));
 	}
 	
 	@Test
