@@ -51,7 +51,7 @@ public interface SQLConstant {
 	
 	String SM_UPDATE = "UPDATE %s SET %s WHERE id = %s";
 	
-	String SM_FINDONE = "SELECT %s FROM %s WHERE id = %s";
+	String SM_FINDONE = "SELECT * FROM %s WHERE id = %s";
 	
 	String SM_FIND = "SELECT * FROM %s %s";
 	

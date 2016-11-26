@@ -60,7 +60,7 @@ public class StandardSQLBuilder implements SQLBuilder {
 		Assert.notNull(clazz);
 		Assert.notNull(id);
 		
-		return SQLData.be(String.format(SQLConstant.SM_FINDONE, String.join(SQLConstant.CB, Clazzs.fields(clazz)), SQLBuilder.tableName(clazz), SQLBuilder.placeholders(1)), id);
+		return SQLData.be(String.format(SQLConstant.SM_FINDONE, SQLBuilder.tableName(clazz), SQLBuilder.placeholders(1)), id);
 	}
 
 	@Override

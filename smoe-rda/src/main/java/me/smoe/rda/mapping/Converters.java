@@ -28,7 +28,7 @@ public class Converters {
 	private static final Map<Integer, Converter> CONVERTERS = new HashMap<>();
 	static {
 		register(Types.TIMESTAMP, (obj) -> {
-			return new Date(Timestamp.class.cast(obj).getTime());
+			return obj == null ? null : new Date(Timestamp.class.cast(obj).getTime());
 		});
 	}
 	

@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import me.smoe.mda.Assert;
+import me.smoe.mda.Clazzs;
 import me.smoe.rda.exception.RdaException;
 
 public class Mapping {
@@ -39,9 +40,10 @@ public class Mapping {
 				try {
 					String field = metaData.getColumnName(i);
 					int type = metaData.getColumnType(i);
-					
-					Object fieldValue = Converters.Converter(type, resultSet.getObject(field));
-					new PropertyDescriptor(field, clazz).getWriteMethod().invoke(instance, fieldValue);
+					if (Clazzs.hasField(clazz, field)) {
+						Object fieldValue = Converters.Converter(type, resultSet.getObject(field));
+						new PropertyDescriptor(field, clazz).getWriteMethod().invoke(instance, fieldValue);
+					}
 				} catch (Exception e) {
 					throw new RdaException(e);
 				}
@@ -66,9 +68,10 @@ public class Mapping {
 				try {
 					String field = metaData.getColumnName(i);
 					int type = metaData.getColumnType(i);
-					
-					Object fieldValue = Converters.Converter(type, resultSet.getObject(field));
-					new PropertyDescriptor(field, clazz).getWriteMethod().invoke(instance, fieldValue);
+					if (Clazzs.hasField(clazz, field)) {
+						Object fieldValue = Converters.Converter(type, resultSet.getObject(field));
+						new PropertyDescriptor(field, clazz).getWriteMethod().invoke(instance, fieldValue);
+					}
 				} catch (Exception e) {
 					throw new RdaException(e);
 				}

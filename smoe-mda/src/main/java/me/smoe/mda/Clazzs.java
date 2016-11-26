@@ -70,6 +70,12 @@ public class Clazzs {
 		return fieldType.cast(method.invoke(entity));
 	}
 	
+	public static <T> boolean hasField(Class<T> clazz, String fieldName) throws Exception {
+		Assert.notNull(clazz);
+		
+		return fields(clazz).contains(fieldName);
+	}
+	
 	public static <E, T> T fieldVal(E entity, String fieldName, Class<T> fieldType) throws Exception {
 		Assert.notNull(entity);
 		Assert.notNull(fieldName);
