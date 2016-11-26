@@ -15,6 +15,7 @@
  */
 package me.smoe.rda;
 
+import java.util.List;
 import java.util.stream.IntStream;
 
 import org.junit.Test;
@@ -45,13 +46,17 @@ public class TestRda {
 	
 	@Test
 	public void sql() {
-		System.out.println(Rda.build("select count(*) from rdo").getLong());
+		Long count = Rda.build("select count(*) from rdo").getLong();
+		System.out.println(count);
 		
-		System.out.println(Rda.build("select name from rdo where id = ?", 1).getString());
+		String name = Rda.build("select name from rdo where id = ?", 1).getString();
+		System.out.println(name);
 
-		System.out.println(Rda.build("select * from rdo where id = ?", 2).mapping(Rdo.class));
-
-		System.out.println(Rda.build("select * from rdo").mappings(Rdo.class));
+		Rdo rdo = Rda.build("select * from rdo where id = ?", 2).mapping(Rdo.class);
+		System.out.println(rdo);
+		
+		List<Rdo> rods = Rda.build("select * from rdo").mappings(Rdo.class);
+		System.out.println(rods);
 	}
 	
 	@Test
