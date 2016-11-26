@@ -101,6 +101,25 @@ public class Clazzs {
 		return fields;
 	}
 	
+	public static <T> Map<String, Object> staticFields(Class<T> clazz) {
+		Assert.notNull(clazz);
+		
+		Map<String, Object> fields = new LinkedHashMap<>();
+		Stream.of(clazz.getDeclaredFields()).forEach((e) -> {
+			try {
+				e.setAccessible(true);
+				
+				Object value = e.get(clazz);
+				
+				fields.put(e.getName(), value);
+			} catch (Exception exception) {
+				throw new RuntimeException(exception);
+			}
+		});
+		
+		return fields;
+	}
+	
 	public static <T> Map<String, Object> fields(T entity) {
 		return fields(entity, true);
 	}
@@ -125,7 +144,7 @@ public class Clazzs {
 					return;
 				}
 				
-				fields.put(e.getName(), e.get(entity));
+				fields.put(e.getName(), value);
 			} catch (Exception exception) {
 				throw new RuntimeException(exception);
 			}

@@ -17,26 +17,31 @@ package me.smoe.rda.mapping;
 
 import java.beans.PropertyDescriptor;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import me.smoe.mda.Assert;
-import me.smoe.mda.Clazzs;
 import me.smoe.rda.exception.RdaException;
 
 public class Mapping {
-
+	
 	public static <T> T to(ResultSet resultSet, Class<T> clazz) throws Exception {
 		Assert.notNull(resultSet);
 		Assert.notNull(clazz);
 
 		if (resultSet.next()) {
 			T instance = clazz.newInstance();
-			Clazzs.fields(clazz).forEach(field -> {
+			
+			ResultSetMetaData metaData = resultSet.getMetaData();
+			IntStream.range(1, metaData.getColumnCount() + 1).forEach(i -> {
 				try {
-					PropertyDescriptor propertyDescriptor = new PropertyDescriptor(field, clazz);
-					Object fieldValue = resultSet.getObject(field, propertyDescriptor.getPropertyType());
-					propertyDescriptor.getWriteMethod().invoke(instance, fieldValue);
+					String field = metaData.getColumnName(i);
+					int type = metaData.getColumnType(i);
+					
+					Object fieldValue = Converters.Converter(type, resultSet.getObject(field));
+					new PropertyDescriptor(field, clazz).getWriteMethod().invoke(instance, fieldValue);
 				} catch (Exception e) {
 					throw new RdaException(e);
 				}
@@ -55,11 +60,15 @@ public class Mapping {
 		List<T> instances = new ArrayList<>();
 		while (resultSet.next()) {
 			T instance = clazz.newInstance();
-			Clazzs.fields(clazz).forEach(field -> {
+			
+			ResultSetMetaData metaData = resultSet.getMetaData();
+			IntStream.range(1, metaData.getColumnCount() + 1).forEach(i -> {
 				try {
-					PropertyDescriptor propertyDescriptor = new PropertyDescriptor(field, clazz);
-					Object fieldValue = resultSet.getObject(field, propertyDescriptor.getPropertyType());
-					propertyDescriptor.getWriteMethod().invoke(instance, fieldValue);
+					String field = metaData.getColumnName(i);
+					int type = metaData.getColumnType(i);
+					
+					Object fieldValue = Converters.Converter(type, resultSet.getObject(field));
+					new PropertyDescriptor(field, clazz).getWriteMethod().invoke(instance, fieldValue);
 				} catch (Exception e) {
 					throw new RdaException(e);
 				}
