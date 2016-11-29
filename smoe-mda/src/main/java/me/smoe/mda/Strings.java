@@ -20,4 +20,24 @@ package me.smoe.mda;
 public class Strings {
 
 	public static final String EMPTY = "";
+	
+	public static final String BLANK = " ";
+	
+	public static final String COLON = ":";
+
+	public static final String QUE = "?";
+
+	public static final String COMMA = ",";
+	
+	public static final String SEMICOLON = ";";
+	
+	public static final String ET = "=";
+	
+	public static final String BT = ">";
+	
+	public static final String LT = "<";
+
+	public static final String AND = "&";
+	
+	public static final String CRLF = "\r\n";
 }

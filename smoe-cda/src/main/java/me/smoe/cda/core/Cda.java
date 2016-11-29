@@ -31,7 +31,9 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import me.smoe.cda.Constants;
 import me.smoe.cda.proxy.CdaProxy;
+import me.smoe.mda.Strings;
 
 public class Cda {
 
@@ -135,7 +137,7 @@ public class Cda {
 				String line;
 				while ((line = rd.readLine()) != null) {
 					text.append(line);
-					text.append("\r\n");
+					text.append(Strings.CRLF);
 				}
 				rd.close();
 				
@@ -167,10 +169,10 @@ public class Cda {
 			HttpURLConnection httpURLConnection = null;
 			if (proxy != null) {
 				Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(this.proxy.proxyIp(),this.proxy.proxyPort()));
-				httpURLConnection = url.startsWith("https") ? (HttpsURLConnection) new URL(buildUrl()).openConnection() : (HttpURLConnection) new URL(buildUrl()).openConnection(proxy);
-				httpURLConnection.setRequestProperty("Proxy-Authorization", "Basic " +  Base64.getEncoder().encodeToString((this.proxy.proxyUsername() + ":" + this.proxy.proxyPassword()).getBytes()));
+				httpURLConnection = url.startsWith(Constants.HTTPS) ? (HttpsURLConnection) new URL(buildUrl()).openConnection() : (HttpURLConnection) new URL(buildUrl()).openConnection(proxy);
+				httpURLConnection.setRequestProperty(Constants.PROXY_AUTHORIZATION, Constants.BASIC + Strings.BLANK +  Base64.getEncoder().encodeToString((this.proxy.proxyUsername() + Strings.COLON + this.proxy.proxyPassword()).getBytes()));
 			} else {
-				httpURLConnection = url.startsWith("https") ? (HttpsURLConnection) new URL(buildUrl()).openConnection() : (HttpURLConnection) new URL(buildUrl()).openConnection();
+				httpURLConnection = url.startsWith(Constants.HTTPS) ? (HttpsURLConnection) new URL(buildUrl()).openConnection() : (HttpURLConnection) new URL(buildUrl()).openConnection();
 			}
 			
             
@@ -179,14 +181,14 @@ public class Cda {
 		
 		private String buildUrl() {
 			if (!urlParams.isEmpty()) {
-				StringBuilder buf = new StringBuilder(url + "?");
+				StringBuilder buf = new StringBuilder(url + Strings.QUE);
 				boolean isFir = true;
 				for (Map.Entry<String, String> me : urlParams.entrySet()) {
 					if (!isFir) {
-						buf.append("&");
+						buf.append(Strings.AND);
 					}
 					
-					buf.append(me.getKey() + "=" + me.getValue());
+					buf.append(me.getKey() + Strings.ET + me.getValue());
 					
 					isFir = false;
 				}
@@ -207,15 +209,35 @@ public class Cda {
 			boolean isFir = true;
 			for (Map.Entry<String, Object> me : formdatas.entrySet()) {
 				if (!isFir) {
-					buf.append("&");
+					buf.append(Strings.AND);
 				}
 				
-				buf.append(me.getKey() + "=" + me.getValue());
+				buf.append(me.getKey() + Strings.ET + me.getValue());
 				
 				isFir = false;
 			}
 			
 			return buf.toString();
+		}
+		
+		public CdaBuilder ua(String ua) {
+			this.header(Constants.USER_AGENT, ua);
+			return this;
+		}
+
+		public CdaBuilder referer(String referer) {
+			this.header(Constants.REFERER, referer);
+			return this;
+		}
+		
+		public CdaBuilder contentType(String contentType) {
+			this.header(Constants.CONTENT_TYPE, contentType);
+			return this;
+		}
+
+		public CdaBuilder contentLength(String contentLength) {
+			this.header(Constants.CONTENT_LENGTH, contentLength);
+			return this;
 		}
 	}
 	

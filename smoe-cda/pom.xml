@@ -22,6 +22,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>me.some</groupId>
+			<artifactId>smoe-mda</artifactId>
+			<version>${version}</version>
+		</dependency>
+	
+		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>${fastjson.version}</version>
