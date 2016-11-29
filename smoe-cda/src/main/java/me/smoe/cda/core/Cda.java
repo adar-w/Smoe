@@ -220,8 +220,8 @@ public class Cda {
 			return buf.toString();
 		}
 		
-		public CdaBuilder ua(String ua) {
-			this.header(Constants.USER_AGENT, ua);
+		public CdaBuilder userAgent(String userAgent) {
+			this.header(Constants.USER_AGENT, userAgent);
 			return this;
 		}
 
