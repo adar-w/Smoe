@@ -42,6 +42,8 @@ public class Cda {
 	}
 	
 	public static class CdaBuilder {
+	    
+	    private static final String DEFAULT_CHARSET = "UTF-8";
 		
 		private static final HttpMethod DEFAULT_HTTPMETHOD = HttpMethod.GET;
 		
@@ -130,20 +132,24 @@ public class Cda {
 		}
 		
 		public String text() throws Exception {
-			try (InputStream inputStream = send()) {
-				BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream));
-				
-				StringBuilder text = new StringBuilder();
-				String line;
-				while ((line = rd.readLine()) != null) {
-					text.append(line);
-					text.append(Strings.CRLF);
-				}
-				rd.close();
-				
-				return text.toString();
-			}
-		}
+            return text(DEFAULT_CHARSET);
+        }
+
+        public String text(String charsetName) throws Exception {
+            try (InputStream inputStream = send()) {
+                BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, charsetName));
+
+                StringBuilder text = new StringBuilder();
+                String line;
+                while ((line = rd.readLine()) != null) {
+                    text.append(line);
+                    text.append(Strings.CRLF);
+                }
+                rd.close();
+
+                return text.toString();
+            }
+        }
 		
 		private InputStream send() throws Exception {
 			HttpURLConnection httpURLConnection = openConnection();
@@ -159,7 +165,7 @@ public class Cda {
 			
 			if (HttpMethod.POST == method) {
 				httpURLConnection.setDoOutput(true);
-				httpURLConnection.getOutputStream().write(buildBody().getBytes());
+				httpURLConnection.getOutputStream().write(buildBody().getBytes(DEFAULT_CHARSET));
 			}
 			
 			return httpURLConnection.getInputStream();
@@ -239,6 +245,10 @@ public class Cda {
 			this.header(Constants.CONTENT_LENGTH, contentLength);
 			return this;
 		}
+		
+		public CdaBuilder contentTypeToJson() {
+		    return contentType(Constants.CONTENT_TYPE_JSON);
+        }
 	}
 	
 	private enum HttpMethod {
